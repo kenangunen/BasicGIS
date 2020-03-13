@@ -1,0 +1,34 @@
+//context-menu
+.custom-cm {
+    font-size: .7rem;
+    z-index: 10;
+    background-color: #F9F9F9;
+    color: var(--mainBlack);
+    border: .05px solid #cccccc;
+    border-radius: 4px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    position: absolute;
+    width: 10.5rem;
+}
+
+.custom-cm__item {
+    display: flex;
+    justify-content: start;
+    text-transform: capitalize;
+    cursor: pointer;
+    padding: 8px 15px;
+    i {
+        pointer-events: none;
+        color: var(--mainBlack);
+        margin-right: .4rem;
+    }
+    p {
+        pointer-events: none;
+        width: 100%;
+    }
+}
+
+.custom-cm__item:hover {
+    background-color: var(--layerHover);
+}

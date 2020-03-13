@@ -1,0 +1,79 @@
+    .data-context {
+        background-color: var(--mainGrey);
+        height: 70%;
+        padding: 0 .5rem;
+        display: flex;
+        align-items: center;
+        user-select: none;
+    }
+    
+    .dropbtn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: transparent;
+        border: none;
+        padding: 0.2rem;
+        &:focus {
+            outline: none;
+            border: .01rem solid var(--window);
+            background-color: var(--window-a50);
+            &:hover {
+                outline: none;
+                border: .01rem solid var(--window);
+                background-color: var(--window-a50);
+            }
+        }
+        &:hover {
+            cursor: pointer;
+            border: .01rem solid var(--window-a50);
+            background-color: var(--window-a20);
+        }
+        .main-icon {
+            pointer-events: none;
+            font-size: 1.2rem;
+            color: var(--window);
+            margin-bottom: 0.1rem;
+        }
+        .connect {
+            padding-left: .6rem;
+        }
+        .down-arrow {
+            margin-left: .2rem;
+            font-size: .5rem;
+            color: var(--mainBlack);
+        }
+        .up-arrow {
+            margin-left: .2rem;
+            font-size: .5rem;
+            color: var(--mainBlack);
+            transform: rotate(180deg);
+        }
+        .main-caption {
+            pointer-events: none;
+            display: block;
+            text-align: center;
+        }
+    }
+    
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        padding-left: .9rem;
+        background-color: #f9f9f9;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    }
+    
+    .dropdown-content a {
+        border-left: .01rem solid lightgrey;
+        color: var(--mainBlack);
+        padding: .2rem .3rem;
+        padding-right: .4rem;
+        font-size: .6rem;
+        text-decoration: none;
+        display: block;
+    }
+    
+    .dropdown-content a:hover {
+        background-color: var(--layerHover);
+    }

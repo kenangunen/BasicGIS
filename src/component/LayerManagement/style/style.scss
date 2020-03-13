@@ -1,0 +1,33 @@
+.layer-btn {
+    margin: .4rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: var(--menuHeader);
+    position: absolute;
+    cursor: pointer;
+    border: none;
+    border-radius: 50%;
+    outline: none;
+    z-index: 1;
+    i {
+        font-size: 0.7rem;
+        color: var(--mainWhite)
+    }
+}
+
+.layer-source {
+    padding: .3rem;
+    display: flex;
+    justify-content: space-around;
+    font-size: 1rem;
+    color: gray;
+    border-bottom: .02rem solid rgba(128, 128, 128, 0.8);
+    .default {
+        color: var(--mainRed);
+    }
+    i {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

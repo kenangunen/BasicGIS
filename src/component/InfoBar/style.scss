@@ -1,0 +1,26 @@
+.info-bar {
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    z-index: 1;
+    bottom: 0;
+    width: 100%;
+    height: 4%;
+    background-color: var(--mainBlue);
+    opacity: .8;
+}
+
+.event-status {
+    text-transform: capitalize;
+    display: flex;
+    align-items: center;
+    width: 30%;
+    padding: 0 .6rem;
+    font-family: 'Montserrat';
+    font-size: .8rem;
+    color: var(--mainWhite);
+}
+
+.other {
+    width: 65%;
+}
