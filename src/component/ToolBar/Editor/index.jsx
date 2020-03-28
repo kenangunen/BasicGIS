@@ -1,7 +1,7 @@
 import React from "react";
 import DrawTools from "./DrawTools";
 import ClearTool from "./ClearTool";
-//import SnapConfig from "./Snap";
+import SnapTool from "./SnapTool";
 
 const Editor = () => {
   return (
@@ -10,9 +10,9 @@ const Editor = () => {
         <DrawTools />
         <ClearTool />
       </div>
-      {/* <div className="options">
-        <SnapConfig />       
-      </div> */}
+      <div className="options">
+        <SnapTool />       
+      </div>
     </div>
   );
 };

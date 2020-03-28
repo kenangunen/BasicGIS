@@ -3,8 +3,6 @@ import posed from "react-pose";
 import SatelliteSection from "./SatelliteSection"
 import LayerSection from "./LayerSection"
 import "./style/style.scss"
-import Request from "../../Models/Request"
-import WMSCapabilities from 'ol/format/WMSCapabilities';
 
 const Animation = posed.div({
   visible: {

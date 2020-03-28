@@ -6,15 +6,16 @@ import { OSM } from "ol/source";
 import { Tile as TileLayer } from "ol/layer";
 import { defaults as defaultInteractions } from "ol/interaction";
 import { Vector as VectorSource } from "ol/source";
-import { Vector as VectorLayer } from "ol/layer"
-import SatelliteModel from "../../Models/Satellite"
+import { Vector as VectorLayer } from "ol/layer";
+import AddDataModel from "../../Models/AddData";
 //import { Circle as CircleStyle, Fill, Stroke, Style } from "ol/style";
+
 import "ol/ol.css";
 import "./style.scss";
 
 export const MapContext = createContext();
 
-const MapProvider = props => {  
+const MapProvider = props => {
   const vectorSource = new VectorSource();
   const view = new View({
     center: [44110148, 4729099],
@@ -40,21 +41,17 @@ const MapProvider = props => {
       zoom: false,
       rotate: false
     })
-  }); 
+  });
 
-  useEffect(() => {  
-    const setVisibilty = () =>{     
-      baseLayer.setVisible(false)
-    }  
-    SatelliteModel.on("setVisib", setVisibilty)
-
-    return () =>{
-      SatelliteModel.off("setVisib", setVisibilty)
-    }
-  })
+  const addData = () => {
+    AddDataModel.handleLayerInfo([
+      { id: "osm", name: "Open Street Map", layer: baseLayer }
+    ]);
+  };
+  setTimeout(addData, 1000);
 
   useEffect(() => {
-    map.setTarget("ol-map");    
+    map.setTarget("ol-map");
   }, []);
 
   return (

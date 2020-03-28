@@ -7,30 +7,40 @@ import React, {
 } from "react";
 import "../../style/window.scss";
 import Request from "../../Models/Request";
-import WMSCapabilities from "ol/format/WMSCapabilities";
 import AddDataModel from "../../Models/AddData";
+import ServicesModel from "../../Models/Services";
+import LayerContextMenuModel from "../../Models/LayerContextMenu";
+import WMSCapabilities from "ol/format/WMSCapabilities";
 import { MapContext } from "../Map/MapContext";
 import { Tile as TileLayer } from "ol/layer";
 import TileWMS from "ol/source/TileWMS";
 import { v1 as uuidv1 } from "uuid";
-import ServicesModel from "../../Models/Services";
 
-const WMSService = () => {
+const WMSService = props => {
+  const { visib } = props;
   const { map } = useContext(MapContext);
-  const close = useRef();
+  const win = useRef();
   const urlValue = useRef();
-  const [services, setServices] = useState();
-  const [layerName, setLayerName] = useState([]);
-  const [addedLayer, setAddedLayer] = useState([]);
-
+  const [selectedLyr, setSelectedLyr] = useState();
+  const [layerInfo, setLayerInfo] = useState([]);
+  const [layerCollect, setLayerCollect] = useState([]);
+  const [addedLayers, setAddedLayers] = useState([]); 
+  const [action, setAction] = useState([]);  
   const select = useRef();
 
+  useEffect(() => {
+    visib
+      ? (win.current.style.display = "block")
+      : (win.current.style.display = "none");
+  });
+
   const closeWindow = () => {
+    urlValue.current.value = "";
     ServicesModel.handleWMSWindowVisib(false);
   };
 
   const getLayers = e => {
-    if (layerName.length === 0) {
+    if (layerInfo.length === 0) {
       e.preventDefault();
       const parser = new WMSCapabilities();
       let WMSData;
@@ -42,12 +52,18 @@ const WMSService = () => {
         .then(data => {
           WMSData = parser.read(data);
           Request.handleObject(WMSData);
+
           const layers = Request.getLayers();
           for (let layer of layers) {
+            const legendURL = layer.Style[0].LegendURL[0].OnlineResource;
             const layerid = uuidv1();
-            layerNameList.push({ name: layer.Name, id: layerid });
+            layerNameList.push({
+              name: layer.Name,
+              id: layerid,
+              legendURL: legendURL
+            });
           }
-          setLayerName([...layerName, ...layerNameList]);
+          setLayerInfo([...layerInfo, ...layerNameList]);
         })
         .catch(err => console.log(err));
     }
@@ -56,61 +72,89 @@ const WMSService = () => {
   const addServices = e => {
     e.preventDefault();
     const optionsLayers = select.current.options;
-    const layerNames = [];
+    const info = [];
+
     for (let option of optionsLayers) {
+      let val = option.value.split(",");
       if (option.selected === true) {
-        layerNames.push(option.value);
+        info.push([{ name: val[0], legendURL: val[1] }]);
       }
     }
-    setServices([urlValue.current.value, layerNames]);
+    setSelectedLyr([urlValue.current.value, info]);
   };
 
   useEffect(() => {
-    if (typeof services !== "undefined") {
+    if (typeof selectedLyr !== "undefined") {
       const optionsLayers = select.current.options;
-      const [url, layerNames] = services;
+      const [url, info] = selectedLyr;
       const temp = [];
-      for (let layerName of layerNames) {
+      for (let lyr of info) {
         for (let option of optionsLayers) {
-          if (option.value === layerName) {
+          if (option.value === layerInfo) {
             option.remove();
           }
         }
-        const layerid = uuidv1();
-        const layerDetail = {
-          name: layerName,
-          id: layerid,
-          dataSource: "WMSLayer"
-        };
-        temp.push(layerDetail);
         const layer = new TileLayer({
           source: new TileWMS({
             url: url,
             params: {
-              LAYERS: layerName
+              LAYERS: lyr[0].name
             },
             serverType: "geoserver"
           }),
-          title: layerName,
-          zIndex: 10
+          title: lyr[0].name,
+          zIndex: 10,
+          opacity: 1
         });
+        
+        const layerid = uuidv1();
+        const layerDetail = {
+          name: lyr[0].name,
+          id: layerid,
+          dataSource: "WMSLayer",
+          layer: layer,
+          legendURL: lyr[0].legendURL
+        };
+        temp.push(layerDetail);
+
         map.addLayer(layer);
       }
-      setAddedLayer([...addedLayer, ...temp]);
+      setLayerCollect([...layerCollect, ...temp]);
+      setAddedLayers([...addedLayers, ...temp]);
     }
-  }, [services]);
+  }, [selectedLyr]);
 
   useEffect(() => {
-    if (addedLayer.length > 0) {
-      console.log(addedLayer);
-      AddDataModel.handleLayerInfo(addedLayer);
-      setAddedLayer([]);
+    if (layerCollect.length > 0) {
+      AddDataModel.handleLayerInfo(layerCollect);
+      setLayerCollect([]);
     }
-  }, [addedLayer]);
+  }, [layerCollect]); 
+  
+
+  useEffect(() => {
+    const handlerAction = act => {
+      setAction(act);
+    };
+    LayerContextMenuModel.on("handleServiceAction", handlerAction);
+
+    if (action.length > 0) {
+      const id = action[0].id;
+      const actionType = action[0].actionType;
+      const result = addedLayers.filter(lyr => lyr.id === id);
+      if (actionType === "remove") {
+        const myLayer = result[0].layer;
+        map.removeLayer(myLayer);
+      }
+    }
+    return () => {
+      LayerContextMenuModel.off("handleServiceAction", handlerAction);
+    };
+  });  
 
   return (
     <Fragment>
-      <div className="window" ref={close}>
+      <div className="window" ref={win}>
         <div className="win-header">
           <i className="connect fas fa-plug"></i>
           <h5>WMS Servis Ekleme Paneli</h5>
@@ -139,10 +183,15 @@ const WMSService = () => {
 
             <div className="form-group">
               <select className="__select" ref={select} multiple="multiple">
-                {layerName.length > 0 &&
-                  layerName.map(lyr => {
+                {layerInfo.length > 0 &&
+                  layerInfo.map(lyr => {
+                    const val = [lyr.name, lyr.legendURL];
                     return (
-                      <option className="__option" key={lyr.id} value={lyr.name}>
+                      <option
+                        className="__option"
+                        key={lyr.id}
+                        value={val.toString()}
+                      >
                         {lyr.name}
                       </option>
                     );

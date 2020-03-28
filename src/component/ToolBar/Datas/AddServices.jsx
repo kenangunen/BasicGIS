@@ -11,7 +11,6 @@ const AddServices = () => {
       setVisib(isVisib);
     };
     ServicesModel.on("setVisib", handleVisib);
-
     return () => {
       ServicesModel.off("setVisib", handleVisib);
     };
@@ -32,13 +31,13 @@ const AddServices = () => {
   };
 
   const selectServiceType = e => {
-    const serviceType = e.target.id;
+    const serviceType = e.target.id;    
     if (serviceType === "WMS") {
       setWMSVisibility();
     }
   };
 
-  const setWMSVisibility = () => {
+  const setWMSVisibility = () => {    
     visib
       ? ServicesModel.handleWMSWindowVisib(false)
       : ServicesModel.handleWMSWindowVisib(true);

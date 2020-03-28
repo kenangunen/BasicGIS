@@ -9,12 +9,6 @@ class ServicesModel extends EventEmitter {
         this.isVisib = isVisib
         this.emit('setVisib', this.isVisib)
     }
-
-
-
-
 }
-
-
 
 export default (new ServicesModel())
