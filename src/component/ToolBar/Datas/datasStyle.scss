@@ -64,7 +64,7 @@
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     }
     
-    .dropdown-content a {
+    .dropdown-content li {
         border-left: .01rem solid lightgrey;
         color: var(--mainBlack);
         padding: .2rem .3rem;
@@ -74,6 +74,6 @@
         display: block;
     }
     
-    .dropdown-content a:hover {
+    .dropdown-content li:hover {
         background-color: var(--layerHover);
     }

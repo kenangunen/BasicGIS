@@ -3,7 +3,7 @@
     flex-direction: column;
     position: absolute;
     right: 0;
-    width: 13rem;
+    width: 15rem;
     height: 60%;
     background-color: var(--mainGrey);
     border-left: 0.05rem solid rgba(128, 128, 128, 0.836);
@@ -38,6 +38,7 @@
     padding: .8rem .5rem;
 }
 
+//WMS window
 .__servicesForm {
     display: flex;
     flex-direction: column;

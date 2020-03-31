@@ -12,12 +12,13 @@ const LayerSection = props => {
   const [clientXY, setClientXY] = useState([]);
   const [vis, setVis] = useState(false);
   const layerContent = useRef();
-  const [val, setVal] = useState(100);
+  const [, setVal] = useState(100);
   const [selectedLyr, updateLyr] = useState(); //Context menu için seçilen layer'ı tutuyor.
 
   const updateOpacity = (e, id) => {
     const sliderValue = e.target.value;
     setVal(sliderValue);
+
     const selectedLayer = getSelectedLayer(id);
     selectedLayer.setOpacity(parseFloat(sliderValue));
   };
@@ -62,6 +63,7 @@ const LayerSection = props => {
       addedLayer.map(lyr => {
         lyr.layer.setZIndex(zIndex);
         zIndex = zIndex - 1;
+        return null;
       });
     }
   });
@@ -132,7 +134,7 @@ const LayerSection = props => {
       removeElement.remove();
       setAction("");
     }
-  }, [action]);
+  }, [action, removeElement]);
 
   return (
     <Fragment>

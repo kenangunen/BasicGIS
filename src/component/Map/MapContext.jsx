@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect } from "react";
 import Map from "ol/Map.js";
 import View from "ol/View.js";
 import { defaults as defaultControls } from "ol/control";
@@ -28,7 +28,7 @@ const MapProvider = props => {
 
   const vectorLyr = new VectorLayer({
     source: vectorSource,
-    zIndex: 100
+    zIndex: 900
   });
 
   const map = new Map({
@@ -52,7 +52,19 @@ const MapProvider = props => {
 
   useEffect(() => {
     map.setTarget("ol-map");
-  }, []);
+  }, [map]);
+
+  map.on("pointermove", function(evt) {
+    var hit = this.forEachFeatureAtPixel(evt.pixel, function(feature, layer) {
+      return true;
+    });
+    if (hit) {
+      this.getTargetElement().style.cursor = "pointer";
+    } else {
+      this.getTargetElement().style.cursor = "";
+    }
+  });
+
 
   return (
     <div className="map" id="ol-map">

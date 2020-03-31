@@ -1,41 +1,26 @@
-import React, { useContext, useState, useEffect } from "react";
-// import { Snap } from "ol/interaction";
-// import { MapContext } from "../../Map/MapContext";
-// import ToolbarModel from "../../../Models/Toolbar"
+import { useContext, useEffect } from "react";
+import { Snap } from "ol/interaction";
+import { MapContext } from "../Map/MapContext";
+import ToolbarModel from "../../Models/Toolbar";
 
 const SnapConfig = () => {
-//   const [isActive, setActive] = useState(false);
-//   const { map, vectorSource } = useContext(MapContext);
+  const { map, vectorSource } = useContext(MapContext);
 
+  useEffect(() => {
+    const statusSnap = isChecked => {
+      setSnapStatus(isChecked);
+    };
+    ToolbarModel.on("onSnap", statusSnap);
+    return () => {
+      ToolbarModel.off("onSnap", statusSnap);
+    };
+  });
+  const snap = new Snap({ source: vectorSource });
 
-//   const snap = new Snap({ source: vectorSource }); 
-//   const change = e => {    
-    
-//     const checkbox = e.target; 
-//     if(checkbox.checked){
-//         map.addInteraction(snap)
-//         console.log("snap eklendi");  
-//     } else{
-//         map.removeInteraction(snap)
-//         console.log("snap silindi");  
-//     }
-//     //setActive(checkbox.checked);
-//   };
+  const setSnapStatus = isChecked => {
+    isChecked ? map.addInteraction(snap) : map.removeInteraction(snap);
+  };
 
-//   useEffect(() => {
-//     const snap = new Snap({ source: vectorSource });
-//     console.log(isActive);
-    
-//     isActive ? map.addInteraction(snap) : map.removeInteraction(snap);
-//   }, [isActive]);
-
-  return (
-    <div className="snap">      
-      <input type="checkbox" id="snap" onChange={e => change(e)} />
-      <label htmlFor="snap">
-        <span></span>Snap
-      </label>
-    </div>
-  );
+  return null;
 };
 export default SnapConfig;

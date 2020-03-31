@@ -17,7 +17,7 @@ const DragDropVector = () => {
 
   useEffect(() => {
     map.addInteraction(interaction);
-  }, [map]);
+  }, [interaction, map]);
 
   const temp = [];
   interaction.on("addfeatures", event => {
@@ -71,6 +71,7 @@ const DragDropVector = () => {
       const layersName = [];
       features.map(feature => {
         layersName.push(feature.get("name"));
+        return null
       });
       const layerInfo = {
         id: layerid,

@@ -3,20 +3,20 @@ import "./App.css";
 import MapProvider from "./component/Map/MapContext";
 import Toolbar from "./component/ToolBar";
 import LayerManagement from "./component/LayerManagement";
-import Overlay from "./component/Overlay/Overlay";
 import Interactions from "./component/Interaction";
-import Services from "./component/Services/index"
+import Services from "./component/Services/index";
+import Tools from "./component/Tools/index";
 
 function App() {
   console.log("App=>Render");
   return (
     <Fragment>
       <Toolbar />
-      <MapProvider>        
+      <MapProvider>
         <LayerManagement />
         <Services />
-        <Overlay />
-        <Interactions />      
+        <Interactions />
+        <Tools />
       </MapProvider>
     </Fragment>
   );

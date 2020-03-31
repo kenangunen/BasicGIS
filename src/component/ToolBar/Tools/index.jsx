@@ -1,8 +1,9 @@
 import React from "react";
-const Tools = () => { 
-  return (
-      <h5>Hazırlık Aşamasında</h5>
-  );
+import CoordinateList from "./CoordinateList";
+const Tools = () => {
+  return <div className="menu-context">
+    <CoordinateList />
+  </div>;
 };
 
 export default Tools;

@@ -100,12 +100,7 @@ const SatelliteSection = () => {
       layers: groups
     });
     map.addLayer(rasterLayerGroup);
-  }, []);
-
-  const temp = [];
-
-
-
+  }, [groups, map, rasterCollection]);
 
   const addIMG = (id, name) => {
     const selectedLayer = groups.filter(lyr => lyr.get("title") === id);

@@ -1,10 +1,4 @@
-import React, {
-  Fragment,
-  useRef,
-  useState,
-  useEffect,
-  useContext
-} from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import "../../style/window.scss";
 import Request from "../../Models/Request";
 import AddDataModel from "../../Models/AddData";
@@ -24,8 +18,8 @@ const WMSService = props => {
   const [selectedLyr, setSelectedLyr] = useState();
   const [layerInfo, setLayerInfo] = useState([]);
   const [layerCollect, setLayerCollect] = useState([]);
-  const [addedLayers, setAddedLayers] = useState([]); 
-  const [action, setAction] = useState([]);  
+  const [addedLayers, setAddedLayers] = useState([]);
+  const [action, setAction] = useState([]);
   const select = useRef();
 
   useEffect(() => {
@@ -106,7 +100,7 @@ const WMSService = props => {
           zIndex: 10,
           opacity: 1
         });
-        
+
         const layerid = uuidv1();
         const layerDetail = {
           name: lyr[0].name,
@@ -129,8 +123,7 @@ const WMSService = props => {
       AddDataModel.handleLayerInfo(layerCollect);
       setLayerCollect([]);
     }
-  }, [layerCollect]); 
-  
+  }, [layerCollect]);
 
   useEffect(() => {
     const handlerAction = act => {
@@ -150,66 +143,64 @@ const WMSService = props => {
     return () => {
       LayerContextMenuModel.off("handleServiceAction", handlerAction);
     };
-  });  
+  });
 
   return (
-    <Fragment>
-      <div className="window" ref={win}>
-        <div className="win-header">
-          <i className="connect fas fa-plug"></i>
-          <h5>WMS Servis Ekleme Paneli</h5>
-          <i className="close fas fa-times" onClick={() => closeWindow()}></i>
-        </div>
-        <div className="win-container">
-          <form className="__servicesForm">
-            <div className="form-group">
-              <label className="__label">URL:</label>
-              <input
-                className="__input"
-                ref={urlValue}
-                type="text"
-                id="WMSurl"
-                placeholder="http://..."
-              />
-            </div>
-            <div className="form-group">
-              <input
-                className="__button"
-                onClick={e => getLayers(e)}
-                type="button"
-                value="Katmanları Getir"
-              ></input>{" "}
-            </div>
-
-            <div className="form-group">
-              <select className="__select" ref={select} multiple="multiple">
-                {layerInfo.length > 0 &&
-                  layerInfo.map(lyr => {
-                    const val = [lyr.name, lyr.legendURL];
-                    return (
-                      <option
-                        className="__option"
-                        key={lyr.id}
-                        value={val.toString()}
-                      >
-                        {lyr.name}
-                      </option>
-                    );
-                  })}
-              </select>
-            </div>
-            <div className="form-group">
-              <input
-                className="__button"
-                onClick={e => addServices(e)}
-                type="button"
-                value="Servisi Ekle"
-              ></input>
-            </div>
-          </form>
-        </div>
+    <div className="window" ref={win}>
+      <div className="win-header">
+        <i className="connect fas fa-plug"></i>
+        <h5>WMS Servis Ekleme Paneli</h5>
+        <i className="close fas fa-times" onClick={() => closeWindow()}></i>
       </div>
-    </Fragment>
+      <div className="win-container">
+        <form className="__servicesForm">
+          <div className="form-group">
+            <label className="__label">URL:</label>
+            <input
+              className="__input"
+              ref={urlValue}
+              type="text"
+              id="WMSurl"
+              placeholder="http://..."
+            />
+          </div>
+          <div className="form-group">
+            <input
+              className="__button"
+              onClick={e => getLayers(e)}
+              type="button"
+              value="Katmanları Getir"
+            ></input>{" "}
+          </div>
+
+          <div className="form-group">
+            <select className="__select" ref={select} multiple="multiple">
+              {layerInfo.length > 0 &&
+                layerInfo.map(lyr => {
+                  const val = [lyr.name, lyr.legendURL];
+                  return (
+                    <option
+                      className="__option"
+                      key={lyr.id}
+                      value={val.toString()}
+                    >
+                      {lyr.name}
+                    </option>
+                  );
+                })}
+            </select>
+          </div>
+          <div className="form-group">
+            <input
+              className="__button"
+              onClick={e => addServices(e)}
+              type="button"
+              value="Servisi Ekle"
+            ></input>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 };
 export default WMSService;

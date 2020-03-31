@@ -31,13 +31,13 @@ const AddServices = () => {
   };
 
   const selectServiceType = e => {
-    const serviceType = e.target.id;    
+    const serviceType = e.target.id;
     if (serviceType === "WMS") {
       setWMSVisibility();
     }
   };
 
-  const setWMSVisibility = () => {    
+  const setWMSVisibility = () => {
     visib
       ? ServicesModel.handleWMSWindowVisib(false)
       : ServicesModel.handleWMSWindowVisib(true);
@@ -67,18 +67,10 @@ const AddServices = () => {
           className="dropdown-content"
           onClick={e => selectServiceType(e)}
         >
-          <a href="#" id="WMS">
-            WMS Servisi Ekle
-          </a>
-          <a href="#" id="WFS">
-            WFS Servisi Ekle
-          </a>
-          <a href="#" id="WFS-T">
-            WFS-T Servisi Ekle
-          </a>
-          <a href="#" id="WMTS">
-            WMTS Servisi Ekle
-          </a>
+          <li id="WMS">WMS Servisi Ekle</li>
+          <li id="WFS">WFS Servisi Ekle</li>
+          <li id="WFS-T">WFS-T Servisi Ekle</li>
+          <li id="WMTS">WMTS Servisi Ekle</li>
         </div>
       </div>
     </Fragment>

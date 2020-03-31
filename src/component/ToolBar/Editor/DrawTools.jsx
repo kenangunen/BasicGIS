@@ -1,39 +1,42 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import ToolbarModel from "../../../Models/Toolbar";
 
 const DrawTools = () => {
-  const [tools] = useState([
-    { id: 0, className: "fas fa-mouse-pointer", title: "None", active: true },
-    { id: 1, className: "far fa-dot-circle", title: "Point", active: true },
-    {
-      id: 2,
-      className: "fas fa-bezier-curve",
-      title: "LineString",
-      active: true
-    },
-    { id: 3, className: "fas fa-draw-polygon", title: "Polygon", active: true },
-    { id: 4, className: "far fa-circle", title: "Circle", active: true }
-    // { id: 5, className: "fas fa-edit", title: "Edit", active: false }
-  ]);
+  const clr = useRef();
 
-  const onClick = title => {
-    ToolbarModel.handleDrawType(title);
+  const callDrawTools = e => {
+    e.stopPropagation();
+    const toolType = e.target.title;
+    ToolbarModel.handleDrawType(toolType);
   };
 
   return (
-    <div className="tools">
-      {tools.map(tool => {
-        return (
-          <button
-            type="button"
-            className={tool.active ? "btn-tool" : "btn-tool"}
-            key={tool.id}
-            onClick={() => onClick(tool.title)}
-          >
-            <i className={tool.className} title={tool.title}></i>
-          </button>
-        );
-      })}
+    <div className="dr-tool">
+      <div className="tools" onClick={e => callDrawTools(e)}>
+        <button type="button" className="btn-tool" title="None">
+          <i className="fas fa-mouse-pointer"></i>
+        </button>
+        <button type="button" className="btn-tool" title="Point">
+          <i className="far fa-dot-circle"></i>
+        </button>
+        <button type="button" className="btn-tool" title="LineString">
+          <i className="fas fa-bezier-curve"></i>
+        </button>
+        <button type="button" className="btn-tool" title="Polygon">
+          <i className="fas fa-draw-polygon"></i>
+        </button>
+        <button type="button" className="btn-tool" title="Circle">
+          <i className="far fa-circle"></i>
+        </button>
+        <button
+          type="button"
+          className="btn-status btn-tool"
+          title="Clear"
+          ref={clr}
+        >
+          <i className="fas fa-ban"></i>
+        </button>
+      </div>
     </div>
   );
 };

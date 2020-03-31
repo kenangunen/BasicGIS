@@ -1,18 +1,13 @@
 import React from "react";
+import ToolOption from "./Options";
 import DrawTools from "./DrawTools";
-import ClearTool from "./ClearTool";
-import SnapTool from "./SnapTool";
+import "./editor.scss";
 
 const Editor = () => {
   return (
     <div className="menu-context">
-      <div className="dr-tool">
-        <DrawTools />
-        <ClearTool />
-      </div>
-      <div className="options">
-        <SnapTool />       
-      </div>
+      <DrawTools />
+      <ToolOption />
     </div>
   );
 };
