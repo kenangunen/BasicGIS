@@ -1,78 +1,93 @@
-.dr-tool {
+@import "../../../variable.scss";
+.draw-tools-content {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 80%;
-    border: .01rem solid lightgray;
-    .tools:last-child {
-        border-left: .01rem solid lightgray;
-    }
+    flex-direction: column;
+    align-items: space-evenly;
+    height: 85%;
+    border-right: .01rem solid $lightGray;
+    width: 9.2rem;
+}
+
+.tools {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: .2rem;
+    border-bottom: .01rem solid $lightGray;
+    width: 12.5rem;
+    height: 55%;
     .btn-tool {
+        position: relative;
+        left: .6rem;
+        margin-right: .2rem;
+        background-color: transparent;
         font-size: 0.7rem;
-        text-align: center;
-        background: transparent;
-        width: 1.5rem;
-        height: 1.5rem;
-        color: var(--mainBlack);
+        width: 1.2rem;
+        height: 1.2rem;
         cursor: pointer;
-        border: none;
-        transition: background-color 0.4s, border-radius 0.4s linear;
+        border: 1.1px solid $gray;
+        border-radius: .2rem;
+        &:first-child {
+            background-color: lighten($gray, 10%);
+        }
         &:hover {
-            border-bottom: .5px solid var(--mainBlack);
+            background-color: lighten($gray, 18%) !important;
         }
         &:focus {
             outline: none;
         }
         &:active {
-            transform: translateY(1px);
+            background-color: lighten($gray, 10%) !important;
         }
-        & i {
+        & img {
             pointer-events: none;
         }
     }
-    // .btn-status {
-    //     pointer-events: none;
-    //     opacity: .4;
-    // }
+    .check-tool {
+        position: relative;
+        left: .4rem;
+        margin-right: .7rem;
+    }
+}
+
+.toolHader {
+    display: flex;
+    justify-content: center;
+    margin-top: .15rem;
+    span {
+        font-size: .6rem;
+    }
 }
 
 //Snap, modify
-.options {
-    pointer-events: none;
-    opacity: .5;
+.options-tools-content {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-left: 1rem;
-    padding: .2rem .2rem;
-    border: .01rem solid lightgray;
-    height: 80%;
+    flex-direction: column;
+    height: 85%;
+    border-right: .01rem solid $lightGray;
+    width: 11.8rem;
     user-select: none;
-    input[type="checkbox"] {
-        display: none;
-    }
-    input[type="checkbox"]+label {
-        color: var(--mainBlack);
-        font-size: .8rem;
-        padding: .1rem .2rem;
-        &:hover {
-            background-color: var(--window-a20);
-        }
-    }
-    input[type="checkbox"]+label span {
-        display: inline-block;
-        position: relative;
-        top: .05rem;
-        margin-right: .2rem;
-        width: .65rem;
-        height: .65rem;
-        border-radius: 50%;
-        background: white;
-        border: .1rem solid var(--window);
-        cursor: pointer;
-    }
-    input[type="checkbox"]:checked+label span {
-        background: var(--window);
-    }
+}
+
+.pretty {
+    font-size: .7rem !important;
+}
+
+.p-info-o {
+    color: $black !important;
+}
+
+.pretty input:checked~.state.p-info-o label:before,
+.pretty.p-toggle .state.p-info-o label:before {
+    border-color: $secondary !important;
+}
+
+//içindeki kare
+.pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
+    background-color: $secondary !important;
+}
+
+//öncesi
+.pretty .state label:before {
+    border-color: $secondary !important;
 }

@@ -6,12 +6,13 @@ import TranslateTool from "./TranslateTool";
 const ToolOption = () => {
   const [interaction, setInt] = useState();
   const opt = useRef();
+  const [isChecked, updateChecked] = useState(false);
 
   useEffect(() => {
-    const getInteraction = effect => {
-      setInt(effect);
+    const getInteraction = (isThereInteraction) => {
+      setInt(isThereInteraction);
 
-      toolStatus(effect);
+      toolStatus(isThereInteraction);
     };
     ToolbarModel.on("onInteraction", getInteraction);
     return () => {
@@ -19,22 +20,20 @@ const ToolOption = () => {
     };
   }, [interaction]);
 
-  const toolStatus = effect => {
-    const optSection = opt.current;
-    if (effect) {
-      optSection.style.opacity = "1";
-      optSection.style.pointerEvents = "auto";
-    } else {
-      optSection.style.opacity = ".3";
-      optSection.style.pointerEvents = "none";
-    }
+  const toolStatus = (isThereInteraction) => {
+    isThereInteraction ? updateChecked(true) : updateChecked(false);
   };
 
   return (
-    <div className="options" ref={opt}>
-      <SnapTool />
-      <ModifyTool />
-      <TranslateTool />
+    <div className="options-tools-content" ref={opt}>
+      <div className="tools">
+        <SnapTool isChecked={isChecked} />
+        <ModifyTool isChecked={isChecked} />
+        <TranslateTool isChecked={isChecked} />
+      </div>
+      <div className="toolHader">
+        <span>Gelişmiş Çizim Araçları</span>        
+      </div>
     </div>
   );
 };

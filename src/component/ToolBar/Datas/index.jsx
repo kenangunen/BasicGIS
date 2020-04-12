@@ -4,7 +4,7 @@ import "./datasStyle.scss";
 
 const Datas = () => {
   return (
-    <div className="menu-context">
+    <div className="data-content">
       <AddServices />
     </div>
   );

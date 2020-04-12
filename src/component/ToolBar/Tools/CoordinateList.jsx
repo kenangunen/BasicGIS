@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import ToolbarModel from "../../../Models/Toolbar";
+import coorList from "../../../img/icon/coorList.svg";
+
 const CoordinateList = () => {
   const [isVis, setVis] = useState(false);
   const showWin = () => {
@@ -11,11 +13,11 @@ const CoordinateList = () => {
   };
   return (
     <div className="dropdown">
-      <button type="button" className="dropbtn" onClick={() => showWin()}>
-        <span className="main-icon">
-          <i className="fas fa-table"></i>
+      <button type="button" className="big-btn" onClick={() => showWin()}>
+        <span>
+          <img src={coorList} alt="Add Service" id="true" />
         </span>
-        <span className="main-caption">Koordinat Listesi</span>
+        <span className="main-caption">Koordinat</span>
       </button>
     </div>
   );

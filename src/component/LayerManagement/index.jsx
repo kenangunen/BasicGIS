@@ -1,86 +1,83 @@
 import React, { Fragment, useState, useRef } from "react";
-import posed from "react-pose";
-import SatelliteSection from "./SatelliteSection"
-import LayerSection from "./LayerSection"
-import "./style/style.scss"
+import SatelliteSection from "./SatelliteSection";
+import LayerSection from "./LayerSection";
+import "./style/style.scss";
+import layer from "../../img/icon/layer.svg";
+import close from "../../img/icon/close.svg";
+import base from "../../img/icon/base.svg";
+import layerController from "../../img/icon/layerController.svg";
 
-const Animation = posed.div({
-  visible: {
-    opacity: 1,
-    transition: { duration: 10 }
-  },
-  hidden: {
-    opacity: 0,
-    transition: { duration: 10 }
-  }
-});
-
-const LayerManagement = () => { 
+const LayerManagement = () => {
   const btn = useRef();
-  const [visib, setVisib] = useState(false);
-  const [layerVisib, setLayerSecVisib] = useState(true); 
-  const [satelliteVisib, setSatelliteVisib] = useState(false); 
+  const [layerVisib, setLayerSecVisib] = useState(true);
+  const [satelliteVisib, setSatelliteVisib] = useState(false);
+  const lyrSection = useRef();
 
   const showLayerSection = () => {
-    setLayerSecVisib(true)
-    setVisib(!visib);
-    visib
-      ? (btn.current.style.display = "block")
-      : (btn.current.style.display = "none");    
+    const wi = lyrSection.current.style.width;
+    wi === "220px"
+      ? (lyrSection.current.style.width = "0px")
+      : (lyrSection.current.style.width = "220px");
   };
-const setVisibility = (e) => { 
-  const id = e.target.id  
-  const buttonList = e.target.parentElement.childNodes
-  for(let btn of buttonList){
-    btn.style.color = "gray"      
-  }
-  e.target.style.color= "var(--mainRed)";
-  if(id==="layer"){
-    setLayerSecVisib(true)
-    setSatelliteVisib(false)
-  }else{
-    setLayerSecVisib(false)
-    setSatelliteVisib(true)
-  }
-}
+  const setVisibility = (e) => {
+    const id = e.target.id;
+    const activeBtn = e.target;
+    const buttonList = e.target.parentElement.childNodes;
+    for (let btn of buttonList) {
+      btn.style.backgroundColor = "#C8C8C8";
+    }
+    activeBtn.style.backgroundColor = "#f3f3f3";
+
+    if (id === "layer") {
+      setLayerSecVisib(true);
+      setSatelliteVisib(false);
+    } else {
+      setLayerSecVisib(false);
+      setSatelliteVisib(true);
+    }
+  };
   return (
-    <Fragment>   
+    <Fragment>
       <button
         ref={btn}
         onClick={() => showLayerSection()}
         className="layer-btn"
         type="button"
       >
-        <i className="fas fa-layer-group"></i>
+        <img src={layer} alt="Layer" />
       </button>
-      <Animation pose={visib ? "visible" : "hidden"}>
-        <div
-          className="pop-window"         
-        >
-          <div className="header">
-            <i className="fas fa-layer-group"></i>
-            <h5>Katman Kontrol</h5>
-            <i
-              onClick={() => showLayerSection()}
-              className="close fas fa-times"
-            ></i>
-          </div>
-          <div className="layer-source">
-            <i id="layer"
-              onClick={(e) => setVisibility(e)}
-              className="default fas fa-layer-group"
-            ></i>
-            <i id="satellite" onClick={(e) => setVisibility(e)} className="fas fa-globe-americas"></i>
-          </div>
-          <LayerSection layerVisib={layerVisib}/>          
-          {satelliteVisib&& (            
-            <SatelliteSection />
-          )
-          }
+      <div className="pop-window" ref={lyrSection}>
+        <div className="header">
+          <img className="header-logo" src={layer} alt="Layer" />
+          <span>Katman Kontrol</span>
+          <img
+            className="closeIMG"
+            src={close}
+            alt="Add Service"
+            id="true"
+            onClick={() => showLayerSection()}
+          />
         </div>
-      </Animation>
+        <div className="layer-source">
+          <button
+            className="layer-tab"
+            id="layer"
+            onClick={(e) => setVisibility(e)}
+          >
+            Katmanlar
+          </button>
+          <button
+            className="layer-tab"
+            id="satellite"
+            onClick={(e) => setVisibility(e)}
+          >
+            Altlıklar
+          </button>
+        </div>
+        <LayerSection layerVisib={layerVisib} />
+        {satelliteVisib && <SatelliteSection />}
+      </div>
     </Fragment>
   );
 };
-
 export default LayerManagement;

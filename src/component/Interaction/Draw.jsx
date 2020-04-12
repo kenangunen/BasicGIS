@@ -8,6 +8,8 @@ const DrawInteraction = () => {
   const [type, setType] = useState();
   const [interaction, setInteraction] = useState();
  
+  
+
   useEffect(() => {
     const updateDrawType = drawType => {
       setType(drawType);
@@ -31,8 +33,10 @@ const DrawInteraction = () => {
         map.removeInteraction(interaction);
       } else if (type === "Clear") {
         vectorSource.clear();
-        //ToolbarModel.handleInteraction(false);
+        ToolbarModel.handleInteraction(false);
       } else {
+        ToolbarModel.handleSelectStatus(false);
+        ToolbarModel.handleCoordinateWinStatus(false);
         const draw = new Draw({
           source: vectorSource,
           type: type
@@ -41,7 +45,7 @@ const DrawInteraction = () => {
         setInteraction(draw);
 
         draw.on("drawstart", () => {
-          ToolbarModel.handleInteraction(draw);
+          ToolbarModel.handleInteraction(true);
         });
       }
     }

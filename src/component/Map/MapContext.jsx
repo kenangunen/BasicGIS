@@ -45,10 +45,10 @@ const MapProvider = props => {
 
   const addData = () => {
     AddDataModel.handleLayerInfo([
-      { id: "osm", name: "Open Street Map", layer: baseLayer }
+      { id: "osm", name: "Open Street Map", layer: baseLayer, index: 0}
     ]);
   };
-  setTimeout(addData, 1000);
+  setTimeout(addData, 100);
 
   useEffect(() => {
     map.setTarget("ol-map");

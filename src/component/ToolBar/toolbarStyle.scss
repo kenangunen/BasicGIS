@@ -1,40 +1,56 @@
+@import "../../variable.scss";
 .tool-bar-container {
     position: relative;
     text-transform: capitalize;
-    background-color: var(--mainGrey);
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 10%;
+    height: 11%;
     border-bottom: 0.05rem solid rgba(128, 128, 128, 0.836);
-    box-shadow: 0 .05rem .3rem grey;
+    box-shadow: 0 .05rem .3rem $gray;
     z-index: 4;
 }
 
 .menu-header {
     display: flex;
     justify-content: start;
-    background-color: var(--mainBlue);
+    background-color: $primary;
     width: 100%;
-    height: 30%;
+    height: 50%;
     button {
+        position: relative;
+        font-family: 'Roboto Condensed', sans-serif !important;
         font-size: .7rem;
-        color: white;
+        color: $white;
         padding: 0 .6rem;
         border: none;
         background: transparent;
+        user-select: none;
         &:focus {
             outline: none;
         }
+        img {
+            position: relative;
+            top: 2px;
+            width: .7rem;
+            height: .7rem;
+        }
+        span {
+            letter-spacing: .07rem;
+            margin-left: .3rem;
+        }
     }
     .default {
-        color: var(--mainBlue);
-        background-color: var(--mainGrey);
+        background-color: $white;
+        color: $black;
+        img {
+            filter: invert(100%);
+        }
     }
 }
 
 .menu-context {
-    background-color: var(--mainGrey);
+    background-color: $white;
     height: 90%;
     padding: 0 .5rem;
     display: flex;

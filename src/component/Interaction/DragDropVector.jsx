@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import { MapContext } from "../Map/MapContext";
 import { GPX, GeoJSON, IGC, KML, TopoJSON } from "ol/format";
@@ -10,9 +10,8 @@ import AddDataModel from "../../Models/AddData";
 
 const DragDropVector = () => {
   const { map } = useContext(MapContext);
-  const [addedLayers, setAddedLayers] = useState([]);
   const interaction = new DragAndDrop({
-    formatConstructors: [GPX, GeoJSON, IGC, KML, TopoJSON]
+    formatConstructors: [GPX, GeoJSON, IGC, KML, TopoJSON],
   });
 
   useEffect(() => {
@@ -20,17 +19,16 @@ const DragDropVector = () => {
   }, [interaction, map]);
 
   const temp = [];
-  interaction.on("addfeatures", event => {
+  interaction.on("addfeatures", (event) => {
     const features = event.features;
     const source = new VectorSource({
-      features
+      features,
     });
     const dropLayer = new VectorLayer({
       source,
       opacity: 1,
-      visible: true
+      visible: true,
     });
-
     map.addLayer(dropLayer);
     map.getView().fit(source.getExtent(), { duration: 1000 });
 
@@ -39,7 +37,6 @@ const DragDropVector = () => {
     // const geoType = geom.getType();
 
     const layerid = uuidv1();
-
     // const featStyle = features[0].getStyleFunction()(
     //   features[0],
     //   map.getView().getResolution()
@@ -57,21 +54,24 @@ const DragDropVector = () => {
         name: event.file.name,
         visibility: dropLayer.getVisible(),
         layer: dropLayer,
-        dataSource: "DragDropVector"
+        dataSource: "DragDropVector",
+        index: 0
         // strokeWidth,
         // strokeColor,
         // fillColor,
         // fillOpacity
       };
 
+      // console.log(layerInfo);
+
       AddDataModel.handleLayerInfo([layerInfo]);
 
       temp.push(layerInfo);
     } else {
       const layersName = [];
-      features.map(feature => {
+      features.map((feature) => {
         layersName.push(feature.get("name"));
-        return null
+        return null;
       });
       const layerInfo = {
         id: layerid,
@@ -79,13 +79,13 @@ const DragDropVector = () => {
         name: event.file.name,
         visibility: dropLayer.getVisible(),
         layer: dropLayer,
-        dataSource: "DragDropVector"
+        dataSource: "DragDropVector",
+        index: 0
       };
       AddDataModel.handleLayerInfo([layerInfo]);
 
       temp.push(layerInfo);
     }
-    setAddedLayers([...addedLayers, ...temp]);
   });
 
   return null;
@@ -94,5 +94,5 @@ const DragDropVector = () => {
 export default DragDropVector;
 
 DragAndDrop.propTypes = {
-  map: PropTypes.object.isRequired
+  map: PropTypes.object.isRequired,
 };

@@ -28,10 +28,8 @@ div.app {
 :root {
     display: flex;
     flex-direction: column;
-    --mainWhite: #f3f3f3;
-    --mainBlack: #0B0C10;
     --mainGrey: #EDEAE5;
-    --mainBlue: #123C69;
+    --mainBlue: #1a1a1d;
     --mainRed: #DC143C;
     --window: #D64161;
     --window-a20: rgba(214, 65, 97, 0.2);
@@ -40,8 +38,16 @@ div.app {
     --blue: #0074D9;
     --mainContextMenu: #edc7b7;
     --layerHover: #D0D0D0;
+    /* yeni tema */
+    // --mainBlack: #1a1a1d;
+    // --mainWhite: #f3f3f3;
+    // --toolContent: #eee2dc;
+    // --darkColor: #314455;
+    /* --mainWhite: #9A1750; */
+    /* --activeBlue: #3feee6; */
+    /* --hoverPinkText: #e3afbc36; */
 }
 
 body {
-    font-family: 'Andada', serif;
+    font-family: 'Poppins', sans-serif;
 }

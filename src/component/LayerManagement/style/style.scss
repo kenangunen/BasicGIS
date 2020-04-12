@@ -1,14 +1,58 @@
+@import "../../../variable.scss";
+.pop-window {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 0;
+    overflow-x: hidden;
+    height: 89%;
+    background-color: $white;
+    border-right: 0.05rem solid rgba(128, 128, 128, 0.836);
+    box-shadow: 0 .05rem .3rem grey;
+    z-index: 10;
+    transition: 0.5s;
+    user-select: none;
+}
+
+.header {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: space-between;
+    align-items: center;
+    padding: .3rem .5rem;
+    background-color: $primary;
+    color: $white;
+    .header-logo {
+        width: .8rem;
+    }
+    span {
+        flex-shrink: 0;
+        max-height: .8rem;
+        flex-basis: 7rem;
+        font-size: .65rem;
+        letter-spacing: .06rem;
+    }
+    .closeIMG {
+        width: .5rem;
+        cursor: pointer;
+    }
+}
+
 .layer-btn {
     margin: .4rem;
-    width: 1.5rem;
-    height: 1.5rem;
-    background-color: var(--menuHeader);
+    width: 1.6rem;
+    height: 1.6rem;
+    background-color: $primary;
     position: absolute;
     cursor: pointer;
     border: none;
     border-radius: 50%;
     outline: none;
     z-index: 1;
+    user-select: none;
+    &:hover {
+        background-color: lighten($primary, 10%);
+    }
     i {
         font-size: 0.7rem;
         color: var(--mainWhite)
@@ -16,18 +60,38 @@
 }
 
 .layer-source {
-    padding: .3rem;
     display: flex;
-    justify-content: space-around;
-    font-size: 1rem;
-    color: gray;
+    width: 100%;
+    height: 1.5rem;
     border-bottom: .02rem solid rgba(128, 128, 128, 0.8);
-    .default {
-        color: var(--mainRed);
+    button:first-child {
+        background-color: $white;
     }
-    i {
-        &:hover {
-            cursor: pointer;
-        }
+    button {
+        cursor: pointer;
+        width: 50%;
+        border: none;
+        outline: none;
+        background-color: $lightGray;
     }
+}
+
+.layer-content {
+    width: 100%;
+    height: 100%;
+    color: var(--mainBlack) !important;
+    // overflow-y: scroll;
+    padding: .5rem 0;
+    // &::-webkit-scrollbar {
+    //     width: 6px;
+    //     background-color: $primary;
+    // }
+    // &::-webkit-scrollbar-track {
+    //     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    //     background-color: $white;
+    // }
+    // &::-webkit-scrollbar-thumb {
+    //     background-color: $primary;
+    //     height: 1rem;
+    // }
 }

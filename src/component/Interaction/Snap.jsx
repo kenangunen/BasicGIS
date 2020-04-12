@@ -7,7 +7,7 @@ const SnapConfig = () => {
   const { map, vectorSource } = useContext(MapContext);
 
   useEffect(() => {
-    const statusSnap = isChecked => {
+    const statusSnap = (isChecked) => {
       setSnapStatus(isChecked);
     };
     ToolbarModel.on("onSnap", statusSnap);
@@ -15,9 +15,10 @@ const SnapConfig = () => {
       ToolbarModel.off("onSnap", statusSnap);
     };
   });
+
   const snap = new Snap({ source: vectorSource });
 
-  const setSnapStatus = isChecked => {
+  const setSnapStatus = (isChecked) => {
     isChecked ? map.addInteraction(snap) : map.removeInteraction(snap);
   };
 

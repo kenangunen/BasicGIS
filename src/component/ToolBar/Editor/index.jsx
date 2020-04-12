@@ -1,14 +1,13 @@
-import React from "react";
+import React, { Fragment } from "react";
 import ToolOption from "./Options";
 import DrawTools from "./DrawTools";
 import "./editor.scss";
-
 const Editor = () => {
   return (
-    <div className="menu-context">
+    <Fragment>
       <DrawTools />
       <ToolOption />
-    </div>
+    </Fragment>
   );
 };
 

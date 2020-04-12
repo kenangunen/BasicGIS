@@ -5,8 +5,8 @@ class ToolbarModel extends EventEmitter {
         this.emit('onDrawType', type)
     }
 
-    handleInteraction(effect) {
-        this.emit('onInteraction', effect)
+    handleInteraction(isThereInteraction) {
+        this.emit('onInteraction', isThereInteraction)
     }
 
     handleSnapStatus(isChecked) {
@@ -21,10 +21,21 @@ class ToolbarModel extends EventEmitter {
     }
 
     handleCoordinateWinStatus(isVisible) {
-        console.log(isVisible);
-
         this.emit('onCoordinateWin', isVisible)
     }
+    handleSelectStatus(isSelected) {
+        this.emit('onSelectStatus', isSelected)
+    }
+
+    handleSelect(select) {
+        this.emit('onSelect', select)
+    }
+
+    handleSelectEvent(selectedFeature) {
+        this.emit('onSelectEvent', selectedFeature)
+    }
+
+
 }
 
 export default (new ToolbarModel())

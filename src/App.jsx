@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import "./App.css";
+import "./App.scss";
 import MapProvider from "./component/Map/MapContext";
 import Toolbar from "./component/ToolBar";
 import LayerManagement from "./component/LayerManagement";

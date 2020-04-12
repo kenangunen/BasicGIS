@@ -4,6 +4,8 @@ import DragDropVector from "./DragDropVector";
 import SnapConfig from "./Snap";
 import ModifyConfig from "./Modify";
 import TranslateConfig from "./Translate";
+import SelectConfig from "./Select";
+
 
 function Interactions() {
   return (
@@ -12,7 +14,8 @@ function Interactions() {
       <DragDropVector />
       <SnapConfig />
       <ModifyConfig />
-      <TranslateConfig />
+      <TranslateConfig /> 
+      <SelectConfig />   
     </Fragment>
   );
 }
