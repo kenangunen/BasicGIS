@@ -1,60 +1,60 @@
-@import "../../variable.scss";
+@import '../../variable.scss';
 .tool-bar-container {
-    position: relative;
-    text-transform: capitalize;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 11%;
-    border-bottom: 0.05rem solid rgba(128, 128, 128, 0.836);
-    box-shadow: 0 .05rem .3rem $gray;
-    z-index: 4;
+          position: relative;
+          text-transform: capitalize;
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          height: 5.2rem;
+          border-bottom: 0.05rem solid rgba(128, 128, 128, 0.836);
+          box-shadow: 0 0.05rem 0.3rem $gray;
+          z-index: 4;
 }
 
 .menu-header {
-    display: flex;
-    justify-content: start;
-    background-color: $primary;
-    width: 100%;
-    height: 50%;
-    button {
-        position: relative;
-        font-family: 'Roboto Condensed', sans-serif !important;
-        font-size: .7rem;
-        color: $white;
-        padding: 0 .6rem;
-        border: none;
-        background: transparent;
-        user-select: none;
-        &:focus {
-            outline: none;
-        }
-        img {
-            position: relative;
-            top: 2px;
-            width: .7rem;
-            height: .7rem;
-        }
-        span {
-            letter-spacing: .07rem;
-            margin-left: .3rem;
-        }
-    }
-    .default {
-        background-color: $white;
-        color: $black;
-        img {
-            filter: invert(100%);
-        }
-    }
+          display: flex;
+          justify-content: flex-start;
+          background-color: $primary;
+          width: 100%;
+          height: 35%;
+          button {
+                    position: relative;
+                    font-family: 'Roboto Condensed', sans-serif !important;
+                    font-size: 0.7rem;
+                    color: $white;
+                    padding: 0 0.6rem;
+                    border: none;
+                    background: transparent;
+                    user-select: none;
+                    &:focus {
+                              outline: none;
+                    }
+                    img {
+                              position: relative;
+                              top: 2px;
+                              width: 0.7rem;
+                              height: 0.7rem;
+                    }
+                    span {
+                              letter-spacing: 0.07rem;
+                              margin-left: 0.3rem;
+                    }
+          }
+          .default {
+                    background-color: $white;
+                    color: $black;
+                    img {
+                              filter: invert(100%);
+                    }
+          }
 }
 
-.menu-context {
-    background-color: $white;
-    height: 90%;
-    padding: 0 .5rem;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    user-select: none;
+.menu-content {
+          background-color: $white;
+          height: 65%;
+          padding: 0 0.5rem;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          user-select: none;
 }

@@ -12,14 +12,12 @@ const CoordinateList = () => {
     isVis ? setVis(false) : setVis(true);
   };
   return (
-    <div className="dropdown">
-      <button type="button" className="big-btn" onClick={() => showWin()}>
-        <span>
-          <img src={coorList} alt="Add Service" id="true" />
-        </span>
-        <span className="main-caption">Koordinat</span>
-      </button>
-    </div>
+    <button type="button" className="tools-big-btn" onClick={() => showWin()}>
+      <span>
+        <img src={coorList} alt="Add Service"/>
+      </span>
+      <span className="main-caption">Koordinat</span>
+    </button>
   );
 };
 

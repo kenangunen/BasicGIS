@@ -1,28 +1,41 @@
 import EventEmitter from 'eventemitter3'
 
 class ToolbarModel extends EventEmitter {
-    handleDrawType(type) {
-        this.emit('onDrawType', type)
+
+    //#region Advanced Tool'ların aktif pasif işlemleri
+    isSnapActive(isActive) {
+        this.emit('onSnapActive', isActive)
     }
 
-    handleInteraction(isThereInteraction) {
-        this.emit('onInteraction', isThereInteraction)
+    isFreehandActive(isActive) {
+        this.emit('onFreehandActive', isActive)
+    }
+    //#endregion
+
+    //#region Advanced Tool'ların  tıklanıp tıklanmadığı işlemleri
+    isSnapChecked(isChecked) {
+        this.emit('onSnapChecked', isChecked)
+    }
+    isFreehandChecked(isChecked) {
+        this.emit('onFreehandChecked', isChecked)
     }
 
-    handleSnapStatus(isChecked) {
-        this.emit('onSnap', isChecked)
-    }
+    //#endregion   
 
-    handleModifyStatus(isChecked) {
-        this.emit('onModify', isChecked)
-    }
-    handleTranslateStatus(isChecked) {
-        this.emit('onTranslate', isChecked)
-    }
-
+    //#region Tools 
     handleCoordinateWinStatus(isVisible) {
         this.emit('onCoordinateWin', isVisible)
     }
+    handleSwipeStatus(isActive) {
+        this.emit('onSwipe', isActive)
+    }
+    handleLegendStatus(isActive) {
+        this.emit('onLegend', isActive)
+    }
+
+    //#endregion
+
+    //#region select 
     handleSelectStatus(isSelected) {
         this.emit('onSelectStatus', isSelected)
     }
@@ -34,7 +47,7 @@ class ToolbarModel extends EventEmitter {
     handleSelectEvent(selectedFeature) {
         this.emit('onSelectEvent', selectedFeature)
     }
-
+    //#endregion
 
 }
 

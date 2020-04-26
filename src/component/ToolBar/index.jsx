@@ -73,7 +73,7 @@ const Toolbar = () => {
           <span>Veriler</span>
         </button>
       </div>
-      <div className="menu-context">
+      <div className="menu-content">
         {editorVisib && <Editor />}
         {toolsVisib && <Tools />}
         {datasVisib && <Datas />}

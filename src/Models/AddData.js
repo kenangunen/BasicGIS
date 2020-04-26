@@ -3,6 +3,7 @@ import EventEmitter from 'eventemitter3'
 class AddDataModel extends EventEmitter {
 
     handleLayerInfo(layerInfo) {
+
         this.emit('onLayerInfo', layerInfo)
     }
 

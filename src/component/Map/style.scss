@@ -1,5 +1,18 @@
 @import '~pretty-checkbox/src/pretty-checkbox.scss';
+@import "../../variable.scss";
 .map {
     width: 100%;
     height: 89%;
+}
+
+
+//Swipe
+.ol-conrol {
+background-color: transparent !important;
+}
+.ol-control button{
+    background-color:  $primary !important;   
+}
+.ol-swipe:before {   
+    background: $primary !important;
 }

@@ -1,34 +1,51 @@
+@import "../variable.scss";
 .window {
+    position: absolute;
     display: flex;
     flex-direction: column;
-    position: absolute;
     right: 0;
     width: 15rem;
     height: 37.5rem;
-    background-color: var(--mainGrey);
+    background-color: $white;
     border-left: 0.05rem solid rgba(128, 128, 128, 0.836);
-    box-shadow: 0 .05rem .3rem grey;
-    z-index: 2;
+    box-shadow: 0 .05rem .3rem $gray;
+    z-index: 10;
 }
 
 .win-header {
     display: flex;
+    flex-shrink: 0;
     justify-content: space-between;
     align-items: center;
+    position: relative;
     padding: .3rem .5rem;
-    background-color: var(--menuHeader);
-    h5 {
-        font-size: .8rem;
-        color: var(--mainWhite);
-        margin-right: .5rem;
+    background-color: $primary;
+    color: $white;
+    .header-text-sm {
+        flex-shrink: 0;
+        max-height: .8rem;
+        flex-basis: 7rem;
+        font-size: .65rem;
+        letter-spacing: .06rem;
     }
-    i {
-        color: var(--mainWhite);
-        font-size: .6rem;
+    .header-text-lg {
+        position: relative;
+        left: -.5rem;
+        flex-shrink: 0;
+        max-height: .8rem;
+        flex-basis: 10rem;
+        font-size: .65rem;
+        letter-spacing: .06rem;
     }
-    .close {
-        cursor: pointer;
-    }
+}
+
+.header-logo {
+    width: .8rem;
+}
+
+.closeIMG {
+    width: .5rem;
+    cursor: pointer;
 }
 
 .win-container {
@@ -36,116 +53,4 @@
     flex-direction: column;
     height: 100%;
     padding: .8rem .5rem;
-}
-
-//WMS window
-.__servicesForm {
-    display: flex;
-    flex-direction: column;
-    border: 0.05rem solid rgba(128, 128, 128, 0.836);
-    height: 90%;
-    border-radius: 2px;
-    padding: 1rem;
-    .form-group {
-        padding: .2rem;
-        display: flex;
-        justify-content: center;
-        margin-bottom: 1rem;
-    }
-    .__input {
-        width: 80%;
-    }
-    .__label {
-        margin-top: .15rem;
-        font-size: .6rem;
-        margin-right: .4rem;
-    }
-    .__select {
-        user-select: none;
-        width: 100%;
-        height: 16rem;
-        padding: .5rem;
-        display: inline-block;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        overflow: auto;
-        overflow-x: hidden;
-        &::-webkit-scrollbar {
-            width: 6px;
-            background-color: var(--menuHeader);
-        }
-        &::-webkit-scrollbar-track {
-            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-            background-color: var(--mainGrey);
-        }
-        &::-webkit-scrollbar-thumb {
-            background-color: var(--menuHeader);
-            height: 1rem;
-        }
-        .parrentLayer {
-            display: flex;
-            overflow: hidden;
-            .btn-showLayer {
-                margin-right: .2rem;
-                background-color: transparent;
-                height: 1rem;
-                border: none;
-                outline: none;
-                cursor: pointer;
-                i {
-                    pointer-events: none;
-                    font-size: .5rem;
-                }
-            }
-            .parrent-option {
-                margin-bottom: .05rem;
-                padding: .2rem;
-                font-size: .65rem;
-                font-weight: bold;
-                cursor: pointer;
-            }
-        }
-        .subLayer {
-            display: none;
-            border-left: .05rem solid lightgray;
-            margin-left: .25rem;
-            .sub-option {
-                position: relative;
-                margin-bottom: .05rem;
-                padding: .2rem;
-                font-size: .6rem;
-                cursor: pointer;
-                span {
-                    position: relative;
-                    bottom: .3rem;
-                    left: -.2rem;
-                    color: lightgray;
-                    margin-right: .1rem;
-                }
-            }
-        }
-    }
-    .__button {
-        padding: .3rem 0rem;
-        width: 60%;
-        outline: none;
-        // box-shadow: inset 0px 1px 0px 0px #ffffff;
-        // background: linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
-        border: 1px solid var(--mainRed);
-        background-color: var(--mainWhite);
-        border-radius: 6px;
-        display: inline-block;
-        cursor: pointer;
-        color: var(--mainRed);
-        font-size: .65rem;
-        font-weight: bold;
-        text-decoration: none;
-        &:active {
-            background-color: var(--menuHeader);
-            color: var(--mainWhite);
-            border: 1px solid var(--menuHeader);
-            position: relative;
-            top: 1px;
-        }
-    }
 }

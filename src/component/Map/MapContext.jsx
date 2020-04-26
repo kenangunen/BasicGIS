@@ -8,7 +8,7 @@ import { defaults as defaultInteractions } from "ol/interaction";
 import { Vector as VectorSource } from "ol/source";
 import { Vector as VectorLayer } from "ol/layer";
 import AddDataModel from "../../Models/AddData";
-//import { Circle as CircleStyle, Fill, Stroke, Style } from "ol/style";
+import { Circle as CircleStyle, Fill, Stroke, Style } from "ol/style";
 
 import "ol/ol.css";
 import "./style.scss";
@@ -26,9 +26,28 @@ const MapProvider = props => {
     source: new OSM()
   });
 
+  const drawStyles = [
+    new Style({
+      stroke: new Stroke({
+        color: '#F81414',
+        width: 3
+      }),
+      image: new CircleStyle({
+        radius: 5,
+        fill: new Fill({
+          color: '#F81414'
+        })
+      }),
+      fill: new Fill({
+        color: 'rgba(248, 20, 20, .2)'
+      })
+    })
+  ]
+
   const vectorLyr = new VectorLayer({
     source: vectorSource,
-    zIndex: 900
+    style: drawStyles,
+    zIndex: 1000
   });
 
   const map = new Map({
@@ -45,7 +64,7 @@ const MapProvider = props => {
 
   const addData = () => {
     AddDataModel.handleLayerInfo([
-      { id: "osm", name: "Open Street Map", layer: baseLayer, index: 0}
+      { id: "osm", name: "Open Street Map", layer: baseLayer, index: 0 }
     ]);
   };
   setTimeout(addData, 100);
@@ -54,16 +73,16 @@ const MapProvider = props => {
     map.setTarget("ol-map");
   }, [map]);
 
-  map.on("pointermove", function(evt) {
-    var hit = this.forEachFeatureAtPixel(evt.pixel, function(feature, layer) {
-      return true;
-    });
-    if (hit) {
-      this.getTargetElement().style.cursor = "pointer";
-    } else {
-      this.getTargetElement().style.cursor = "";
-    }
-  });
+  // map.on("pointermove", function(evt) {
+  //   var hit = this.forEachFeatureAtPixel(evt.pixel, function(feature, layer) {
+  //     return true;
+  //   });
+  //   if (hit) {
+  //     this.getTargetElement().style.cursor = "pointer";
+  //   } else {
+  //     this.getTargetElement().style.cursor = "";
+  //   }
+  // });
 
 
   return (

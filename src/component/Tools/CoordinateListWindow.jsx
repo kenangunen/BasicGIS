@@ -1,13 +1,20 @@
 import React, { useState, useEffect, useRef } from "react";
 import ToolbarModel from "../../Models/Toolbar";
+import EditorModel from "../../Models/Editor";
 import proj4 from "proj4";
 import { transform } from "ol/proj";
 import { register } from "ol/proj/proj4";
 import { getArea, getLength } from "ol/sphere";
 import { createStringXY } from "ol/coordinate";
 import * as XLSX from "xlsx";
-import "./style.scss";
+import "./coordinateWin.scss";
+//#region SVG
+import list from "../../img/icon/list.svg";
+import close from "../../img/icon/close.svg";
+import downArrow from "../../img/icon/downArrow.svg";
+//#endregion
 
+//#region Register Proj
 proj4.defs("EPSG:4326", "+proj=longlat +datum=WGS84 +no_defs");
 proj4.defs(
   "EPSG:23035",
@@ -54,16 +61,19 @@ proj4.defs(
   "+proj=tmerc +lat_0=0 +lon_0=45 +k=1 +x_0=500000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
 );
 register(proj4);
+//#endregion
 
 const CoordinateListWindow = () => {
-  const crsList = useRef();
   const [tableData, updateTable] = useState([]);
   const [selected, updateSelected] = useState();
   const [currentCRS, updateCRS] = useState("EPSG:3857"); //mevcur crs'yi tutuyor
   const [measure, setMeasure] = useState();
   const table = useRef();
+  const dArrow = useRef();
+  const crsList = useRef();
 
-  ToolbarModel.handleDrawType("None");
+
+  EditorModel.handleDrawType("None");
   useEffect(() => {
     ToolbarModel.handleSelectStatus(true);
     const selectEvent = (sel) => {
@@ -74,6 +84,7 @@ const CoordinateListWindow = () => {
       ToolbarModel.off("onSelectEvent", selectEvent);
     };
   }, []);
+
   const stringifyFunc = createStringXY(2);
   useEffect(() => {
     if (typeof selected !== "undefined") {
@@ -114,24 +125,24 @@ const CoordinateListWindow = () => {
         }
       }
       updateTable([...datas]);
-    }else{
-      updateTable([]);      
+    } else {
+      updateTable([]);
       setMeasure([{ label: "", val: "", unit: "" }]);
     }
   }, [selected]);
 
   const showCRSList = (e) => {
-    if (crsList.current.style.display !== "inherit") {
-      crsList.current.style.display = "inherit";
+    if (crsList.current.style.height !== "272px") {
+      crsList.current.style.height = "272px";
     } else {
-      crsList.current.style.display = "none";
+      crsList.current.style.height = "0px";
     }
   };
 
   const selectCRS = (e) => {
     const ctsText = e.target.textContent;
-    e.target.parentElement.previousSibling.innerHTML = ctsText;
-    crsList.current.style.display = "none";
+    document.querySelector(".crs-text").innerHTML = ctsText;
+    crsList.current.style.height = "0px";
 
     const wkid = e.target.value;
     const destination = "EPSG:" + wkid;
@@ -146,7 +157,7 @@ const CoordinateListWindow = () => {
     updateTable(transfromedCoor);
   };
 
-  const exportCoor = (e) => {    
+  const exportCoor = (e) => {
     const workbook = XLSX.utils.book_new();
     const worksheet_data = table.current;
     const worksheet = XLSX.utils.table_to_sheet(worksheet_data);
@@ -161,15 +172,29 @@ const CoordinateListWindow = () => {
   return (
     <div className="window">
       <div className="win-header">
-        <i className="connect fas fa-plug"></i>
-        <h5>Koordinat Listesi</h5>
-        <i className="close fas fa-times" onClick={() => closeWindow()}></i>
+        <img src={list} alt="Header Logo" />
+        <span className="header-text-lg">Koordinat Listesi</span>
+        <img
+          className="closeIMG"
+          src={close}
+          alt="Close Window"
+          onClick={() => closeWindow()}
+        />
       </div>
       <div className="win-container">
         <div className="coordinate-tool">
           <div className="set-crs">
-            <button className="selectCRS" onClick={(e) => showCRSList(e)}>
-              WGS 84 / Pseudo-Mercator (epsg:3857)
+            <button className="crs-dropbtn" onClick={(e) => showCRSList(e)}>
+              <span className="crs-text">
+                WGS 84 / Pseudo-Mercator (epsg:3857)
+              </span>
+              <img
+                className="down-arrow"
+                src={downArrow}
+                ref={dArrow}
+                alt="Down Arrow"
+                id="true"
+              />
             </button>
             <div
               className="set-crs-content"
@@ -192,11 +217,6 @@ const CoordinateListWindow = () => {
               <li value="4326">WGS 84 (epsg:4326)</li>
               <li value="3857">WGS 84 / Pseudo-Mercator (epsg:3857)</li>
             </div>
-          </div>
-          <div className="exportCoor" onClick={(e) => exportCoor()}>
-            <li>
-              <i className="fas fa-file-excel"></i>
-            </li>
           </div>
         </div>
         <div className="coor-table-section">
@@ -231,6 +251,14 @@ const CoordinateListWindow = () => {
           </div>
         )}
       </div>
+      <input
+        className="crs-btn"
+        onClick={() => exportCoor()}
+        type="button"
+        value="Tabloyu İndir"
+      >
+        {/* <img src={excel} alt="Download Excel"/> */}
+      </input>
     </div>
   );
 };

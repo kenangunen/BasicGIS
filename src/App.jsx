@@ -8,7 +8,7 @@ import Services from "./component/Services/index";
 import Tools from "./component/Tools/index";
 
 function App() {
-  console.log("App=>Render");
+  console.log("Basic GIS");
   return (
     <Fragment>
       <Toolbar />

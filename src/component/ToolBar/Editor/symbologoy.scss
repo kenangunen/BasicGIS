@@ -1,0 +1,174 @@
+@import '../../../variable.scss';
+.window-sym {
+ position: absolute;
+ display: flex;
+ flex-direction: column;
+ right: 0;
+ top: 5.2rem;
+ width: 15rem;
+ height: 37.5rem;
+ background-color: $white;
+ border-left: 0.05rem solid rgba(128, 128, 128, 0.836);
+ box-shadow: 0 0.05rem 0.3rem $gray;
+ z-index: 10;
+}
+
+.sym-content {
+ display: flex;
+ flex-direction: column;
+ align-items: flex-start;
+ margin-top: 3.5rem;
+ overflow: hidden;
+ height: 100%;
+ padding: 0.5rem;
+}
+
+.content-item {
+ display: flex;
+ flex-direction: column;
+ height: 1.2rem;
+ width: 100%;
+ border-radius: 6px;
+ background-color: $lightGray;
+ transition: 1s;
+ margin-bottom: 2rem;
+
+ &:first-child {
+  height: 9rem;
+ }
+}
+
+.sym-main {
+ display: flex;
+ align-items: center;
+ height: 1.2rem;
+ .sym-label {
+  position: relative;
+  left: 1rem;
+  padding-left: 0.2rem;
+  width: 40%;
+  span {
+   position: relative;
+   bottom: 0.1rem;
+   left: 0.1rem;
+   text-align: center;
+   color: $black;
+   font-size: 0.7rem;
+   margin-right: 0.5rem;
+  }
+ }
+ .sym-color {
+  position: relative;
+  left: 1rem;
+  width: 40%;
+  cursor: pointer;
+  height: 100%;
+  overflow: hidden;
+  .colorLine {
+   position: relative;
+   width: 100%;
+   height: 1.2rem;
+   border: 3px solid #f81414;
+  }
+  .color {
+   position: relative;
+   width: 100%;
+   height: 1.2rem;
+   background: rgba(248, 20, 20, 0.2);
+  }
+  .pttrn {
+   position: relative;
+   width: 100%;
+   height: 1.2rem;
+   border: 1px solid $black;
+  }
+ }
+ .line-width {
+  position: relative;
+  left: 1rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  button {
+   cursor: pointer;
+   outline: none;
+   border: 0.01rem solid gray;
+   background-color: $white;
+   width: 0.6rem;
+   height: 50%;
+   &:focus {
+    outline: none;
+   }
+  }
+ }
+}
+
+.popover {
+ display: flex;
+ flex-wrap: wrap;
+ margin-top: 0.5rem;
+ width: 100%;
+ overflow: hidden;
+ padding-left: 0.3rem;
+}
+//color picker
+
+.setSym-btn {
+ position: absolute;
+ bottom: 2rem;
+ left: 1.5rem;
+ padding: 0.3rem 0rem;
+ width: 80%;
+ outline: none;
+ border: 1px solid $secondary;
+ background-color: transparent;
+ border-radius: 6px;
+ display: inline-block;
+ cursor: pointer;
+ color: $secondary;
+ font-size: 0.65rem;
+ font-weight: bold;
+ text-decoration: none;
+ transition: 0.5s;
+ &:hover {
+  background-color: $gray;
+  border: 1px solid $gray;
+  color: $white;
+ }
+ &:active {
+  background-color: $success;
+ }
+}
+
+.sketch-picker {
+ border-radius: 0 !important;
+ background-color: $lightGray !important;
+ padding: 0.4rem !important;
+ width: 11rem !important;
+ box-shadow: none !important;
+}
+
+.alpha-picker {
+ margin-top: 1rem;
+ width: 245px !important;
+}
+
+.compact-picker {
+ background-color: $white !important;
+ box-shadow: none !important;
+}
+
+//pattern
+
+.pattern-img {
+ cursor: pointer;
+ width: 2rem;
+ height: 2rem;
+ border: 1px solid $black;
+ background-color: $white;
+ margin-right: 0.1rem;
+ margin-bottom: 0.1rem;
+ &:last-child {
+  background-color: transparent;
+ }
+}

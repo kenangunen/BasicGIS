@@ -1,21 +1,52 @@
 import React, { useEffect, useState } from "react";
 import CoordinateListWindow from "./CoordinateListWindow";
 import ToolbarModel from "../../Models/Toolbar";
+import SwipeConfig from "./Swipe";
+import AddToLegend from "./AddToLegend";
 
 const Tools = () => {
-  const [visib, setVisib] = useState();
+  const [visibCoor, setVisibCoor] = useState(false);
+  const [visibLegend, setVisibLegend] = useState(false);
+  const [isActiveSwipe, setActiveSwipe] = useState(false);
+
   useEffect(() => {
     const updateVisiblety = isVisible => {
-      setVisib(isVisible);
+      setVisibLegend(isVisible);
     };
-    ToolbarModel.on("onCoordinateWin", updateVisiblety);
+    ToolbarModel.on("onLegend", updateVisiblety);
 
     return () => {
-      ToolbarModel.off("onCoordinateWin", updateVisiblety);
+      ToolbarModel.off("onLegend", updateVisiblety);
     };
-  });
+  }, [visibLegend]);
 
-  return <div>{visib && <CoordinateListWindow />}</div>;
+  useEffect(() => {
+    const updateCoorVisiblety = isVisible => {
+      setVisibCoor(isVisible);
+    };
+    ToolbarModel.on("onCoordinateWin", updateCoorVisiblety);
+
+    return () => {
+      ToolbarModel.off("onCoordinateWin", updateCoorVisiblety);
+    };
+  }, [visibCoor]);
+
+  useEffect(() => {
+    const swipeStatus = (isActive) => {
+      setActiveSwipe(isActive)
+    }
+    ToolbarModel.on("onSwipe", swipeStatus)
+    return () => {
+      ToolbarModel.off("onSwipe", swipeStatus)
+    }
+  })
+
+
+  return <div>
+    {visibCoor && <CoordinateListWindow />}
+    <SwipeConfig isActive={isActiveSwipe} />
+    {visibLegend && <AddToLegend />}
+  </div>;
 };
 
 export default Tools;

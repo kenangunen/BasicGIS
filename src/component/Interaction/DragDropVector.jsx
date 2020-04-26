@@ -18,7 +18,6 @@ const DragDropVector = () => {
     map.addInteraction(interaction);
   }, [interaction, map]);
 
-  const temp = [];
   interaction.on("addfeatures", (event) => {
     const features = event.features;
     const source = new VectorSource({
@@ -55,18 +54,13 @@ const DragDropVector = () => {
         visibility: dropLayer.getVisible(),
         layer: dropLayer,
         dataSource: "DragDropVector",
-        index: 0
+        index: 0,
         // strokeWidth,
         // strokeColor,
         // fillColor,
         // fillOpacity
       };
-
-      // console.log(layerInfo);
-
       AddDataModel.handleLayerInfo([layerInfo]);
-
-      temp.push(layerInfo);
     } else {
       const layersName = [];
       features.map((feature) => {
@@ -80,11 +74,9 @@ const DragDropVector = () => {
         visibility: dropLayer.getVisible(),
         layer: dropLayer,
         dataSource: "DragDropVector",
-        index: 0
+        index: 0,
       };
       AddDataModel.handleLayerInfo([layerInfo]);
-
-      temp.push(layerInfo);
     }
   });
 

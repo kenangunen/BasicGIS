@@ -18,16 +18,19 @@ const AddServices = () => {
     };
   }, [visib]);
 
-  const showPopUp = (e) => {   
-    if (dropdownContent.current.style.display === "block") {
-      dropdownContent.current.style.display = "none";
-    } else {
-      dropdownContent.current.style.display = "block";
-    }
+  const showPopUp = (e) => {
+    console.log(dropdownContent.current.style.height)
+    // if (dropdownContent.current.style.height === "0px") {
+    //   dropdownContent.current.style.height = "150px";
+    // } else {
+    //   dropdownContent.current.style.height = "0px";
+    // }
 
     if (dArrow.current.className === "down-arrow") {
+      dropdownContent.current.style.height = "96px"     
       dArrow.current.className = "up-arrow";
     } else {
+      dropdownContent.current.style.height = "0px"
       dArrow.current.className = "down-arrow";
     }
   };
@@ -46,10 +49,10 @@ const AddServices = () => {
   };
 
   window.addEventListener("click", (e) => {
-    const val = e.target.id;  
+    const val = e.target.id;
     if (!val) {
       if (dropdownContent.current !== null) {
-        dropdownContent.current.style.display = "none";
+        dropdownContent.current.style.height = "0px";
         dArrow.current.className = "down-arrow";
       }
     }

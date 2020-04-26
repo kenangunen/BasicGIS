@@ -17,17 +17,19 @@ const SelectConfig = () => {
     };
   }, []);
 
+  const select = new Select();
   if (active === true) {
-    const select = new Select();
-    ToolbarModel.handleSelect(select)
+    ToolbarModel.handleSelect(select);
     select.on("select", (e) => {
       const selectedFeature = e.selected;
-      ToolbarModel.handleSelectEvent(selectedFeature[0])
-      if(selectedFeature.lengt === 0){
-        map.removeInteraction(select)
+      ToolbarModel.handleSelectEvent(selectedFeature[0]);
+      if (selectedFeature.lengt === 0) {
+        map.removeInteraction(select);
       }
     });
     map.addInteraction(select);
+  } else {  
+    map.removeInteraction(select);
   }
 
   return null;

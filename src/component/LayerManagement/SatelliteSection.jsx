@@ -84,6 +84,7 @@ const SatelliteSection = () => {
   ]);
   const { map } = useContext(MapContext);
   let groups = [];
+
   useEffect(() => {
     for (let raster of rasterCollection) {
       const baseLayer = new TileLayer({
@@ -122,7 +123,7 @@ const SatelliteSection = () => {
 
   return (
     <Fragment>
-      <div className="layer-content">
+      <div className="baseLyr-content">
         <div className="raster-list">
           {rasterCollection.map((raster) => {
             return (
@@ -137,10 +138,6 @@ const SatelliteSection = () => {
                   <img src={raster.img} alt="" />
                 </div>
                 <div className="card-container">
-                  {/* <i
-                  className="fas fa-plus"
-                  onClick={(e) => addIMG(raster.id, raster.name)}
-                ></i> */}
                   <span>{raster.name}</span>
                 </div>
               </div>

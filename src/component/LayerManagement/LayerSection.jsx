@@ -5,8 +5,7 @@ import ContextMenu from "./LayerContexMenu";
 import "./style/layerSectionStyle.scss";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
-const LayerSection = (props) => {
-  const { layerVisib } = props;
+const LayerSection = () => {
   const [addedLayer, setAddedLayer] = useState([]);
 
   const [removeElement, setRemoveElement] = useState("");
@@ -17,18 +16,11 @@ const LayerSection = (props) => {
   const [, setVal] = useState(100);
   const [selectedLyr, updateLyr] = useState(); //Context menu için seçilen layer'ı tutuyor.
 
-  //satellite bölmesine geçip tekrar döndüğümüzde checkboxların durumlarını korumak için yaptım.
-  if (addedLayer.length > 0) {
-    layerVisib
-      ? (layerContent.current.style.display = "block")
-      : (layerContent.current.style.display = "none");
-  }
-
   const temp = addedLayer;
   //eklenen katmanları alıyoruz.
   useEffect(() => {
     const onLayerInfo = (layerInfo) => {
-      temp.unshift(layerInfo[0]);
+      temp.unshift(...layerInfo);
       updateLayerList(temp);
     };
     AddDataModel.on("onLayerInfo", onLayerInfo);
@@ -110,12 +102,14 @@ const LayerSection = (props) => {
   };
 
   const onContextMenu = (e, id) => {
+    const popupWin = document.querySelector(".pop-window");
+    popupWin.style.overflow = "visible";
     setRemoveElement(id);
     const selectedLayer = getSelectedLayer(id);
     updateLyr(selectedLayer);
     e.preventDefault();
-    const y = e.screenX;
-    const x = e.screenY;
+    const y = e.clientX;
+    const x = e.clientY;
     setClientXY([x, y]);
     setVis(true);
   };
@@ -150,14 +144,14 @@ const LayerSection = (props) => {
 
   return (
     <Fragment>
-      {/* {vis && (
+      {vis && (
         <ContextMenu
           clientXY={clientXY}
           visibility={vis}
           selectedLayer={selectedLyr}
         />
-      )} */}
-      <div ref={layerContent} className="layer-content">
+      )}
+      <div ref={layerContent} className="lyr-content">
         {addedLayer.length > 0 && (
           <DragDropContext onDragEnd={(e) => onDragEnd(e)}>
             <Droppable droppableId="droppable">
@@ -210,7 +204,6 @@ const LayerSection = (props) => {
                               </div>
                             </div>
                             <div className="opacity-bar">
-                              <img src={layer.legendURL} alt="" />
                               <input
                                 type="range"
                                 min="0"
@@ -235,29 +228,4 @@ const LayerSection = (props) => {
     </Fragment>
   );
 };
-
 export default LayerSection;
-
-// const layersUp = (id) => {
-//   const layer = addedLayer.find((lyr) => lyr.id === id);
-//   const layerIndex = addedLayer.findIndex((lyr) => lyr.id === id);
-//   const newArray = addedLayer.filter((lyr) => lyr.id !== id);
-//   if (layerIndex === 0) {
-//     newArray.splice(newArray.length, 0, layer);
-//   } else {
-//     newArray.splice(layerIndex - 1, 0, layer);
-//   }
-//   setAddedLayer(newArray);
-// };
-
-// const layersDown = (id) => {
-//   const layer = addedLayer.find((lyr) => lyr.id === id);
-//   const layerIndex = addedLayer.findIndex((lyr) => lyr.id === id);
-//   const newArray = addedLayer.filter((lyr) => lyr.id !== id);
-//   if (layerIndex === newArray.length) {
-//     newArray.splice(0, 0, layer);
-//   } else {
-//     newArray.splice(layerIndex + 1, 0, layer);
-//   }
-//   setAddedLayer(newArray);
-// };

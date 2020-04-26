@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import LayerContextMenuModel from "../../../Models/LayerContextMenu";
 import "../style/style.scss";
+import removeLyr from "../../../img/icon/removeLyr.svg"
 const RemoveLayer = props => {
   const { cm, selectedLayer, map} = props;  
     
@@ -13,7 +14,7 @@ const RemoveLayer = props => {
 
   return (
     <div onClick={() => onClick()} className="custom-cm__item" id="remove">
-      <i className="far fa-trash-alt"></i>
+     <img src={removeLyr} alt="Remove Layer"/>
       <p>sil</p>
     </div>
   );

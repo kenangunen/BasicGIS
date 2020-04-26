@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Vector as VectorSource } from "ol/source";
 import { OSM } from "ol/source";
 import TileJSON from "ol/source/TileJSON";
-//import TileWMS from "ol/source/TileWMS";
+import zoomLyr from "../../../img/icon/zoomLyr.svg"
 
 import "../style/style.scss";
 
@@ -28,7 +28,7 @@ const ZoomToLayer = props => {
 
   return (
     <div onClick={() => onClick()} className="custom-cm__item" id="zoom">
-      <i className="fas fa-search-plus"></i>
+     <img src={zoomLyr} alt="Zoom to Layer"/>
       <p>katmanı yakınlaştır</p>
     </div>
   );

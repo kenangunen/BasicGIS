@@ -1,93 +1,111 @@
 @import "../../../variable.scss";
-.draw-tools-content {
-    display: flex;
-    flex-direction: column;
-    align-items: space-evenly;
-    height: 85%;
-    border-right: .01rem solid $lightGray;
-    width: 9.2rem;
+.tool-content {
+  display: flex;
+  height: 100%;
+  // width: 18rem;
+  // border: 1px solid red;
+}
+
+.tool-box {
+  display: flex;
+  flex-direction: column;
+  border-right: 0.01rem solid $lightGray;
+  padding: 0.2rem 0.2rem;
+  height: 100%;
+  width: 10rem;
+}
+.passive-box {
+  .tools {
+    pointer-events: none;
+    opacity: 0.6;
+  }
 }
 
 .tools {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 0.01rem solid $lightGray;
+  padding-top: 0.2rem;
+  height: 65%;
+  .btn-tool {
+    position: relative; // left: .6rem;
+    background-color: transparent;
+    width: 1.2rem;
+    height: 1.2rem;
+    cursor: pointer;
+    border: 1.1px solid $gray;
+    border-radius: 0.2rem;
+    &[title="None"] {
+      background-color: lighten($gray, 10%);
+    }
+    &:hover {
+      background-color: lighten($gray, 18%) !important;
+    }
+    &:focus {
+      outline: none;
+    }
+    &:active {
+      background-color: lighten($gray, 10%) !important;
+    }
+    & img {
+      pointer-events: none;
+    }
+  }
+  .check-tool {
     position: relative;
-    display: flex;
-    justify-content: flex-start;
-    margin-top: .2rem;
-    border-bottom: .01rem solid $lightGray;
-    width: 12.5rem;
-    height: 55%;
-    .btn-tool {
-        position: relative;
-        left: .6rem;
-        margin-right: .2rem;
-        background-color: transparent;
-        font-size: 0.7rem;
-        width: 1.2rem;
-        height: 1.2rem;
-        cursor: pointer;
-        border: 1.1px solid $gray;
-        border-radius: .2rem;
-        &:first-child {
-            background-color: lighten($gray, 10%);
-        }
-        &:hover {
-            background-color: lighten($gray, 18%) !important;
-        }
-        &:focus {
-            outline: none;
-        }
-        &:active {
-            background-color: lighten($gray, 10%) !important;
-        }
-        & img {
-            pointer-events: none;
-        }
-    }
-    .check-tool {
-        position: relative;
-        left: .4rem;
-        margin-right: .7rem;
-    }
+    left: 0.4rem;
+    margin-right: 0.7rem;
+  }
 }
 
 .toolHader {
-    display: flex;
-    justify-content: center;
-    margin-top: .15rem;
-    span {
-        font-size: .6rem;
-    }
+  display: flex;
+  justify-content: center;
+  margin-top: 0.15rem;
+  height: 35%;
+  span {
+    font-size: 0.6rem;
+  }
 }
 
-//Snap, modify
-.options-tools-content {
-    display: flex;
-    flex-direction: column;
-    height: 85%;
-    border-right: .01rem solid $lightGray;
-    width: 11.8rem;
-    user-select: none;
+Snap,
+modify .advancedTool-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.adv-tools {
+  position: relative;
+  border-bottom: 0.01rem solid $lightGray;
+  padding-top: 0.3rem;
+  padding-left: 0.5rem;
+  height: 59%;
+  div {
+    margin-right: 0.5rem;
+  }
 }
 
 .pretty {
-    font-size: .7rem !important;
+  font-size: 0.7rem !important;
 }
 
 .p-info-o {
-    color: $black !important;
+  color: $black !important;
 }
 
-.pretty input:checked~.state.p-info-o label:before,
+.pretty input:checked ~ .state.p-info-o label:before,
 .pretty.p-toggle .state.p-info-o label:before {
-    border-color: $secondary !important;
+  border-color: $secondary !important;
 }
 
 //içindeki kare
-.pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
-    background-color: $secondary !important;
+.pretty.p-default:not(.p-fill) input:checked ~ .state.p-info-o label:after {
+  background-color: $secondary !important;
 }
 
 //öncesi
 .pretty .state label:before {
-    border-color: $secondary !important;
+  border-color: $secondary !important;
 }

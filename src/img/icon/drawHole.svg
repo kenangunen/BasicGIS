@@ -1,0 +1,13 @@
+<svg width="24.000000000000004" height="24.000000000000004" xmlns="http://www.w3.org/2000/svg">
+ <title/>
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="26" width="26" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <path stroke="null" fill="#00007f" transform="rotate(0.456427663564682 10.804229736327944,10.702076911926293) " id="Polygon 179 copy" d="m10.796496,1.889667l9.293546,6.655361l-4.669853,10.969458l-9.255763,0l-4.645999,-10.969458l9.278069,-6.655361zm0,1.102031l-8.118315,5.823449l4.065255,9.598268l8.098789,0l4.08613,-9.598268l-8.13186,-5.823449zm0,0"/>
+  <rect stroke="#00007f" id="svg_1" height="4.110367" width="5.742258" y="10.378897" x="8.159578" fill="none"/>
+ </g>
+</svg>

@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
 import "../../style/window.scss";
+import "./wmsWStyle.scss";
 import Request from "../../Models/Request";
 import AddDataModel from "../../Models/AddData";
 import ServicesModel from "../../Models/Services";
@@ -10,6 +11,9 @@ import { Tile as TileLayer } from "ol/layer";
 import TileWMS from "ol/source/TileWMS";
 import { TileArcGISRest } from "ol/source";
 import { v1 as uuidv1 } from "uuid";
+import close from "../../img/icon/close.svg";
+import download from "../../img/icon/download.svg";
+import link from "../../img/icon/link.svg";
 
 const WMSService = (props) => {
   const { visib } = props;
@@ -23,6 +27,7 @@ const WMSService = (props) => {
   const [action, setAction] = useState([]);
   const [serviceType, updateType] = useState("");
   const select = useRef();
+  const loader = useRef();
 
   useEffect(() => {
     visib
@@ -36,15 +41,10 @@ const WMSService = (props) => {
     updateLyrData([]);
   };
 
-  const selectServisType = (e) => {
-    const name = e.target.name;
-    const val = e.target.value;
-    if (name === "service") {
-      updateType(val);
-    }
-  };
-
   const getLayers = (e) => {
+    select.current.style.height = "460px";
+    loader.current.style.display = "inherit";
+
     if (layerData.length === 0 && serviceType !== "") {
       e.preventDefault();
       const url = urlValue.current.value;
@@ -57,7 +57,7 @@ const WMSService = (props) => {
         Request.getCapability(servicesURL)
           .then((data) => {
             console.log(data);
-            
+
             WMSData = parser.read(data);
             Request.handleObject(WMSData, serviceType);
             const layers = Request.getLayers();
@@ -136,6 +136,12 @@ const WMSService = (props) => {
     }
   };
 
+  useEffect(() => {
+    if (layerData.length > 0) {
+      loader.current.style.display = "none";
+    }
+  });
+
   const addServices = (e) => {
     e.preventDefault();
 
@@ -193,7 +199,7 @@ const WMSService = (props) => {
             id: layerid,
             dataSource: "WMSLayer",
             layer: layer,
-            index : 0
+            index: 0,
             // legendURL: lyr[0].legendURL
           };
           temp.push(layerDetail);
@@ -220,7 +226,7 @@ const WMSService = (props) => {
             id: layerid,
             dataSource: "WMSLayer",
             layer: tileArcGISLayer,
-            index : 0
+            index: 0,
           };
           temp.push(layerDetail);
           map.addLayer(tileArcGISLayer);
@@ -229,6 +235,7 @@ const WMSService = (props) => {
       setLayerCollect([...layerCollect, ...temp]);
       setAddedLayers([...addedLayers, ...temp]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedLyr]);
 
   useEffect(() => {
@@ -259,16 +266,16 @@ const WMSService = (props) => {
   });
 
   const selectSubLayer = (e) => {
-    if (e.target.className === "parrent-option") {     
+    if (e.target.className === "parrent-option") {
       const parrentLayer = e.target;
-      const subLayers = e.target.parentElement.nextSibling.children;        
+      const subLayers = e.target.parentElement.nextSibling.children;
       if (parrentLayer.style.backgroundColor !== "lightgray") {
         parrentLayer.style.backgroundColor = "lightgray";
         for (let subLyr of subLayers) {
           subLyr.value = "1";
           subLyr.style.backgroundColor = "rgba(220, 20, 60, 0.45)";
         }
-      } else {               
+      } else {
         parrentLayer.style.backgroundColor = "initial";
         for (let subLyr of subLayers) {
           subLyr.value = "0";
@@ -303,101 +310,116 @@ const WMSService = (props) => {
   return (
     <div className="window" ref={win}>
       <div className="win-header">
-        <i className="connect fas fa-plug"></i>
-        <h5>WMS Servis Ekleme Paneli</h5>
-        <i className="close fas fa-times" onClick={() => closeWindow()}></i>
+        <img src={download} alt="Header Logo" />
+        <span className="header-text-lg">WMS Servis Ekleme Paneli</span>
+        <img
+          className="closeIMG"
+          src={close}
+          alt="Close Window"
+          onClick={() => closeWindow()}
+        />
       </div>
       <div className="win-container">
-        <form className="__servicesForm">
-          <div className="form-group">
-            <label className="__label">URL:</label>
+        <div className="form-group">
+          <button className="UrlIcon">
+            <img src={link} alt="URL" />
+          </button>
+          <input
+            className="UrlInput"
+            ref={urlValue}
+            type="text"
+            id="WMSurl"
+            placeholder="URL"
+          />
+        </div>
+        <div className="form-group">
+          <div className="pretty p-default p-curve p-thick p-smooth">
             <input
-              className="__input"
-              ref={urlValue}
-              type="text"
-              id="WMSurl"
-              placeholder="http://..."
-            />
-          </div>
-          <div className="form-group" onClick={(e) => selectServisType(e)}>
-            <input
-              className="__raido"
               type="radio"
+              name="service"
               id="geoserver"
-              name="service"
-              value="geoserver"
+              onClick={(e) => updateType("geoserver")}
             />
-            <label className="__label" htmlFor="geoserver">
-              Geo Server
-            </label>
-            <input
-              className="__raido"
-              type="radio"
-              id="mapserver"
-              name="service"
-              value="mapserver"
-            />
-            <label className="__label" htmlFor="mapserver">
-              Map Server
-            </label>
-          </div>
-          <div className="form-group">
-            <input
-              className="__button"
-              onClick={(e) => getLayers(e)}
-              type="button"
-              value="Katmanları Getir"
-            ></input>{" "}
-          </div>
-
-          <div className="form-group">
-            <div className="__select" ref={select} multiple="multiple">
-              {layerData.length > 0 &&
-                layerData.map((lyr) => (
-                  <div key={lyr.id}>
-                    <div className="parrentLayer">
-                      <button
-                        className="btn-showLayer"
-                        type="button"
-                        onClick={(e) => showSubLayer(e)}
-                      >
-                        <i className="fas fa-plus"></i>
-                      </button>
-                      <li
-                        className="parrent-option"
-                        title={lyr.id}
-                        onClick={(e) => selectSubLayer(e)}
-                      >
-                        {lyr.name}
-                      </li>
-                    </div>
-                    <div className="subLayer">
-                      {lyr.serviceType === "mapserver" &&
-                        lyr.subLayers.map((sub) => (
-                          <li
-                            className="sub-option"
-                            key={sub.id}
-                            title={sub.id}
-                            onClick={(e) => selectSubLayer(e)}
-                          >
-                            <span>__</span>
-                            {sub.name}
-                          </li>
-                        ))}
-                    </div>
-                  </div>
-                ))}
+            <div className="state p-info-o">
+              <label>Geo Server</label>
             </div>
           </div>
-          <div className="form-group">
+          <div className="pretty p-default p-curve p-thick p-smooth">
             <input
-              className="__button"
-              onClick={(e) => addServices(e)}
-              type="button"
-              value="Servisi Ekle"
-            ></input>
+              type="radio"
+              name="service"
+              id="mapserver"
+              onClick={(e) => updateType("mapserver")}
+            />
+            <div className="state p-info-o">
+              <label>Map Server</label>
+            </div>
           </div>
-        </form>
+        </div>
+        <div className="form-group">
+          <input
+            className="wms-btn"
+            onClick={(e) => getLayers(e)}
+            type="button"
+            value="Katmanları Getir"
+          ></input>{" "}
+        </div>
+
+        <div className="form-group">
+          <div className="layerList" ref={select} multiple="multiple">
+            <div ref={loader} className="loader">
+              <div className="circle"></div>
+              <div className="circle"></div>
+              <div className="circle"></div>
+              <div className="circle"></div>
+              <div className="circle"></div>
+            </div>
+
+            {layerData.length > 0 &&
+              layerData.map((lyr) => (
+                <div key={lyr.id}>
+                  <div className="parrentLayer">
+                    <button
+                      className="btn-showLayer"
+                      type="button"
+                      onClick={(e) => showSubLayer(e)}
+                    >
+                      <i className="fas fa-plus"></i>
+                    </button>
+                    <li
+                      className="parrent-option"
+                      title={lyr.id}
+                      onClick={(e) => selectSubLayer(e)}
+                    >
+                      {lyr.name}
+                    </li>
+                  </div>
+                  <div className="subLayer">
+                    {lyr.serviceType === "mapserver" &&
+                      lyr.subLayers.map((sub) => (
+                        <li
+                          className="sub-option"
+                          key={sub.id}
+                          title={sub.id}
+                          onClick={(e) => selectSubLayer(e)}
+                        >
+                          <span>__</span>
+                          {sub.name}
+                        </li>
+                      ))}
+                  </div>
+                </div>
+              ))}
+          </div>
+        </div>
+        <div className="form-group">
+          <input
+            className="wms-btn"
+            onClick={(e) => addServices(e)}
+            type="button"
+            value="Servisi Ekle"
+          ></input>
+        </div>
       </div>
     </div>
   );

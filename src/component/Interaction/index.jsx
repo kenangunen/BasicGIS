@@ -1,10 +1,9 @@
 import React, { Fragment } from "react";
 import DrawInteraction from "./Draw";
 import DragDropVector from "./DragDropVector";
-import SnapConfig from "./Snap";
-import ModifyConfig from "./Modify";
-import TranslateConfig from "./Translate";
 import SelectConfig from "./Select";
+import SnapConfig from './Snap'
+import EditInteraction from "./Edit";
 
 
 function Interactions() {
@@ -12,10 +11,9 @@ function Interactions() {
     <Fragment>
       <DrawInteraction />
       <DragDropVector />
+      <SelectConfig />
       <SnapConfig />
-      <ModifyConfig />
-      <TranslateConfig /> 
-      <SelectConfig />   
+      <EditInteraction />
     </Fragment>
   );
 }

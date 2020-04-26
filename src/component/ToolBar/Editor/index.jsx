@@ -1,13 +1,15 @@
-import React, { Fragment } from "react";
-import ToolOption from "./Options";
+import React from "react";
+import AdvancedTools from "./AdvancedTools";
 import DrawTools from "./DrawTools";
 import "./editor.scss";
+import EditTools from "./EditTools";
 const Editor = () => {
   return (
-    <Fragment>
+    <div className="tool-content">
       <DrawTools />
-      <ToolOption />
-    </Fragment>
+      <EditTools />
+      <AdvancedTools />
+    </div>
   );
 };
 

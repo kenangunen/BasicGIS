@@ -5,13 +5,14 @@ import RemoveLayer from "./RemoveLayer";
 import ZoomToLayer from "./ZoomToLayer";
 import "./style.scss";
 
+
 const ContextMenu = props => {
   const { map } = useContext(MapContext);
   const { visibility, clientXY, selectedLayer } = props;
 
   const cm = useRef();
   useEffect(() => {
-    const x = clientXY[0] - 200;
+    const x = clientXY[0];
     const y = clientXY[1];
     if (visibility === true) {
       cm.current.style.display = "block";

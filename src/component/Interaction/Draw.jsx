@@ -1,56 +1,83 @@
 import { useState, useEffect, useContext } from "react";
 import ToolbarModel from "../../Models/Toolbar";
+import EditorModel from "../../Models/Editor";
 import { MapContext } from "../Map/MapContext";
-import { Draw } from "ol/interaction";
 
-const DrawInteraction = () => { 
+const DrawInteraction = () => {
   const { map, vectorSource } = useContext(MapContext);
   const [type, setType] = useState();
-  const [interaction, setInteraction] = useState();
- 
-  
+  const [freehand, updateFreehand] = useState();
 
   useEffect(() => {
-    const updateDrawType = drawType => {
+    const updateDrawType = (drawType) => {
       setType(drawType);
     };
-    ToolbarModel.on("onDrawType", updateDrawType);
+    EditorModel.on("onDrawType", updateDrawType);
     return () => {
-      ToolbarModel.off("onDrawType", updateDrawType);
+      EditorModel.off("onDrawType", updateDrawType);
     };
   }, [type]);
 
+  //#region  
   useEffect(() => {
-    if (interaction !== undefined) {
-      map.removeInteraction(interaction);
-    }
-    addDraw();
-  }, [type]);
+    const statusFreehand = (isChecked) => {
+      updateFreehand(isChecked)
+    };
+    ToolbarModel.on("onFreehandChecked", statusFreehand);
+    return () => {
+      ToolbarModel.off("onFreehandChecked", statusFreehand);
+    };
+  });
+  //#endregion
 
-  const addDraw = () => {
-    if (type) {
+  //#region Add Ineraction
+  useEffect(() => {
+    if (typeof type !== "undefined") {
       if (type === "None") {
-        map.removeInteraction(interaction);
+        EditorModel.RemoveDraw()
       } else if (type === "Clear") {
+        const editTools = document.getElementById("editTools")
+        editTools.className = "tool-box passive-box"
+        EditorModel.RemoveDraw()
         vectorSource.clear();
-        ToolbarModel.handleInteraction(false);
-      } else {
+        //#region advanced tool işleri 
+        // ToolbarModel.isSnapActive(false);    
+        // ToolbarModel.isSnapChecked(false);
+        //#endregion
+      }
+      else {
+        EditorModel.RemoveDraw()
+        if (type === "LineString" || type === "Polygon") {
+          //#region advanced tool işleri
+
+          ToolbarModel.isFreehandActive(true);
+          //#endregion
+        }
+        else {
+          //#region advanced tool işleri   
+          ToolbarModel.isFreehandChecked(false);
+          ToolbarModel.isFreehandActive(false);
+          //#endregion
+        }
+        //#region advanced tool işleri
+        ToolbarModel.isSnapActive(true);
         ToolbarModel.handleSelectStatus(false);
         ToolbarModel.handleCoordinateWinStatus(false);
-        const draw = new Draw({
-          source: vectorSource,
-          type: type
-        });
-        map.addInteraction(draw);
-        setInteraction(draw);
+        //#endregion        
+        EditorModel.AddDraw(map, vectorSource, type, freehand)
 
-        draw.on("drawstart", () => {
-          ToolbarModel.handleInteraction(true);
-        });
+        // draw.on("drawstart", () => {          
+        //   editTools.className = "tool-box"
+
+        // });
       }
     }
-  };
+  })
+
+  //#endregion
 
   return null;
 };
 export default DrawInteraction;
+
+

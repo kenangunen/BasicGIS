@@ -1,25 +1,21 @@
-import { useContext, useEffect } from "react";
-import { Snap } from "ol/interaction";
-import { MapContext } from "../Map/MapContext";
+import {useEffect } from "react";
 import ToolbarModel from "../../Models/Toolbar";
+import EditorModel from "../../Models/Editor";
 
 const SnapConfig = () => {
-  const { map, vectorSource } = useContext(MapContext);
 
   useEffect(() => {
-    const statusSnap = (isChecked) => {
+    const statusSnap = (isChecked) => {      
       setSnapStatus(isChecked);
     };
-    ToolbarModel.on("onSnap", statusSnap);
+    ToolbarModel.on("onSnapChecked", statusSnap);
     return () => {
-      ToolbarModel.off("onSnap", statusSnap);
+      ToolbarModel.off("onSnapChecked", statusSnap);
     };
   });
 
-  const snap = new Snap({ source: vectorSource });
-
-  const setSnapStatus = (isChecked) => {
-    isChecked ? map.addInteraction(snap) : map.removeInteraction(snap);
+  const setSnapStatus = (isChecked) => {    
+    isChecked ? EditorModel.AddSnap() : EditorModel.RemoveSnap();   
   };
 
   return null;

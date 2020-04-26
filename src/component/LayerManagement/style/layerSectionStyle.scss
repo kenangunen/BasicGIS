@@ -2,16 +2,19 @@
     .layer-list {
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
         padding: 0.5rem;
         user-select: none;
+        height: 100%;
     }
     
     .layer-section {
-        margin-bottom: .1rem;
-        border-bottom: .015rem solid rgba(128, 128, 128, 0.8);
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        outline: none;
+        border: none;
         &:hover {
-            background-color: var(--layerHover);
+            background-color: lighten($gray, 18%);
         }
     }
     
@@ -42,34 +45,6 @@
             padding: .05rem;
             align-self: center;
         }
-        .layer-translation {
-            position: relative;
-            left: .1rem;
-            display: flex;
-            button {
-                align-self: center;
-                outline: none;
-                background-color: var(--mainWhite);
-                border-radius: .2rem;
-                border: 1px solid var(--mainRed);
-                display: inline-block;
-                cursor: pointer;
-                color: var(--mainBlack);
-                height: 1rem;
-                padding: 0 .1rem;
-                text-decoration: none;
-                text-shadow: 0px 1px 0px #7cacde;
-                margin-left: .1rem;
-                &:hover {
-                    background-color: var(--mainRed);
-                    color: var(--mainWhite);
-                }
-                &:active {
-                    position: relative;
-                    top: 1px;
-                }
-            }
-        }
         .eye {
             position: relative;
             top: .1rem;
@@ -90,19 +65,21 @@
     }
     
     .opacity-bar {
-        display: none;
         position: relative;
-        margin-left: .7rem;
-        margin-bottom: .1rem;
+        left: .55rem;
+        height: 1rem;
+        width: 6rem;
+        display: none;
+        cursor: context-menu;
         input[type='range'] {
             overflow: hidden;
             position: relative;
-            margin-left: .8rem;
-            top: -.3rem;
-            width: 60%;
-            height: .4rem;
+            bottom: .157rem;
+            left: .3rem;
+            width: 90%;
+            height: .5rem;
             -webkit-appearance: none;
-            background-color: gray;
+            background-color: lighten($primary, 50%);
             outline: none;
             &::-webkit-slider-runnable-track {
                 height: 10px;
@@ -115,8 +92,8 @@
                 -webkit-appearance: none;
                 height: .6rem;
                 cursor: pointer;
-                background: var(--mainBlack);
-                box-shadow: -4rem 0 0 4rem var(--mainRed);
+                background: $gray;
+                box-shadow: -4rem 0 0 4rem $primary;
                 &:active {
                     outline: none;
                 }
