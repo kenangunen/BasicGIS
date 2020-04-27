@@ -1,6 +1,7 @@
-BasicGIS
+###BasicGIS
 
-### `npm start`
+##To start the project
+## `npm start`
 
 
 
