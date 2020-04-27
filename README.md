@@ -5,7 +5,7 @@ To start the project
 
 Project sample image
 
-![](https://github.com/kenangunen/BasicGIS/tree/master/src/img/1.PNG)
+![alt text](https://github.com/kenangunen/BasicGIS/tree/master/src/img/1.PNG)
 
 
 
